@@ -1,4 +1,3 @@
-import React from 'react';
 import decentralizedIcon from '@assets/decentralized.png';
 import fastTransactionIcon from '@assets/fastTransaction.png';
 import securityIcon from '@assets/security.png';
@@ -6,7 +5,12 @@ import lowFeesIcon from '@assets/lowFees.png';
 import supportIcon from '@assets/support.png';
 import transparencyIcon from '@assets/transparency.png';
 
-const platformCards = [
+import clarityIcon from '@assets/transparency.png';
+import noHiddenIcon from '@assets/noHidden.png';
+import userFocusIcon from '@assets/userFocus.png';
+
+
+const landingCards = [
   {
     icon: decentralizedIcon,
     title: 'Decentralized',
@@ -45,10 +49,33 @@ const platformCards = [
   },
 ];
 
-const OurPlatformCards = () => {
+const aboutCards = [
+  {
+    icon: clarityIcon,
+    title: 'Clarity by design',
+    description:
+      'Every screen shows what matters. Balances, fees, and activity are always visible.',
+  },
+  {
+    icon: noHiddenIcon,
+    title: 'No hidden mechanics',
+    description:
+      'What you see is exactly what you get. No surprises or unclear conditions.',
+  },
+  {
+    icon: userFocusIcon,
+    title: 'Built for real users',
+    description:
+      'Beginner-friendly without limiting experienced users or advanced workflows.',
+  },
+];
+
+const OurPlatformCards = ({ variant = 'landing' }) => {
+  const cards = variant === 'about' ? aboutCards : landingCards;
+
   return (
     <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
-      {platformCards.map((card, index) => (
+      {cards.map((card, index) => (
         <div
           key={index}
           className="relative bg-bg-surface p-8 rounded-2xl flex flex-col items-center text-center space-y-6 border border-bg-elevated hover:border-brand-primary transition-all duration-300 overflow-hidden"
@@ -68,7 +95,9 @@ const OurPlatformCards = () => {
           {/* text */}
           <div className="relative z-10">
             <h1 className="text-2xl font-semibold">{card.title}</h1>
-            <p className="text-text-secondary/70 text-sm lg:text-base mt-2">{card.description}</p>
+            <p className="text-text-secondary/70 text-sm lg:text-base mt-2">
+              {card.description}
+            </p>
           </div>
         </div>
       ))}

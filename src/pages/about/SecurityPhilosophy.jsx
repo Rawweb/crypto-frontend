@@ -7,7 +7,7 @@ const trustMetrics = [
   { value: 'Multi-Layer', label: 'Account Protection' },
 ];
 
-const SecurityTrustSection = () => {
+const SecurityPhilosophy = () => {
   return (
     <section className="mt-32">
       <div className="bg-bg-surface/80 border-y border-bg-elevated">
@@ -16,14 +16,13 @@ const SecurityTrustSection = () => {
           <div className="flex gap-2 lg:gap-4 items-center justify-center mb-6">
             <div className="bg-brand-primary w-3 h-7 lg:h-10"></div>
             <h1 className="text-3xl md:text-4xl lg:text-5xl font-semibold leading-tight">
-              Security & Trust
+              Security is our foundation
             </h1>
           </div>
 
           {/* core statement */}
           <p className="text-text-secondary/70 md:text-lg leading-relaxed">
-            Security isn’t something you toggle on. It’s built into the
-            platform’s infrastructure, protecting every account and transaction.
+            We don’t treat security as a feature. It’s the foundation of how the platform is built. Every account, every transaction, and every withdrawal is protected by multiple layers of verification and encrypted infrastructure.
           </p>
 
           {/* divider */}
@@ -48,4 +47,4 @@ const SecurityTrustSection = () => {
   );
 };
 
-export default SecurityTrustSection;
+export default SecurityPhilosophy;
