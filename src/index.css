@@ -1,0 +1,116 @@
+@import 'tailwindcss';
+
+@theme {
+  /* ========================
+     BREAKPOINTS
+  ======================== */
+  /* --breakpoint-sm: 640px;
+  --breakpoint-md: 768px;
+  --breakpoint-lg: 976px;
+  --breakpoint-xl: 1024px; */
+
+  /* ========================
+     FONTS
+  ======================== */
+  --font-sans: 'Inter', system-ui, sans-serif;
+  --font-heading: 'Space Grotesk', 'Inter', sans-serif;
+  --font-mono: 'Inter', monospace;
+
+  /* ========================
+     BACKGROUNDS
+  ======================== */
+  --color-bg-main: #0b0e11;
+  --color-bg-surface: #11151c;
+  --color-bg-elevated: #1c222b;
+
+  /* ========================
+     TEXT
+  ======================== */
+  --color-text-primary: #eaecef;
+  --color-text-secondary: #b7bdc6;
+  --color-text-muted: #7a818c;
+  --color-text-disabled: #4b5563;
+
+  /* ========================
+     BRAND
+  ======================== */
+  --color-brand-primary: #ff6500;
+  --color-brand-hover: #f87b1b;
+  --color-brand-badge: #f7931a2a;
+
+  /* ========================
+     STATUS
+  ======================== */
+  --color-status-success: #22c55e;
+  --color-status-danger: #ef4444;
+  --color-status-warning: #f59e0b;
+  --color-status-info: #3b82f6;
+}
+
+@layer components {
+  /* container */
+  .container {
+    @apply mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl;
+  }
+
+  h1 {
+    @apply font-heading
+  }
+}
+
+@layer utilities {
+  @keyframes float {
+    0%,
+    100% {
+      transform: translateY(0);
+    }
+    50% {
+      transform: translateY(-10px);
+    }
+  }
+
+  .animate-float {
+    animation: float 5s ease-in-out infinite;
+  }
+
+  /* blink */
+  @keyframes blink {
+    0%,
+    50%,
+    100% {
+      opacity: 1;
+    }
+    25%,
+    75% {
+      opacity: 0;
+    }
+  }
+
+  .animate-blink {
+    animation: blink 2s step-start infinite;
+  }
+
+  /* marquee */
+  @keyframes marquee {
+    0% {
+      transform: translateX(0%);
+    }
+    100% {
+      transform: translateX(-50%);
+    }
+  }
+
+  .animate-marquee {
+    animation: marquee 35s linear infinite;
+  }
+
+  .animate-marquee:hover {
+    animation-play-state: paused;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-marquee {
+    animation: none;
+  }
+}
