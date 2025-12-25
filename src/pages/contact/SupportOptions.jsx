@@ -1,3 +1,5 @@
+import Reveal from '@components/motion/Reveal';
+
 const supportOptions = [
   {
     title: 'Support',
@@ -19,18 +21,20 @@ const supportOptions = [
 const SupportOptions = () => {
   return (
     <section className="container mt-32">
-      <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
-        {supportOptions.map((item, index) => (
-          <div
-            key={index}
-            className="bg-bg-surface border border-bg-elevated rounded-2xl p-8"
-          >
-            <h3 className="text-lg font-semibold mb-2">{item.title}</h3>
-            <p className="text-text-secondary/70 mb-4">{item.description}</p>
-            <p className="text-sm text-brand-primary">{item.contact}</p>
-          </div>
-        ))}
-      </div>
+      <Reveal>
+        <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
+          {supportOptions.map((item, index) => (
+            <div
+              key={index}
+              className="bg-bg-surface border border-bg-elevated rounded-2xl p-8"
+            >
+              <h3 className="text-lg font-semibold mb-2">{item.title}</h3>
+              <p className="text-text-secondary/70 mb-4">{item.description}</p>
+              <p className="text-sm text-brand-primary">{item.contact}</p>
+            </div>
+          ))}
+        </div>
+      </Reveal>
     </section>
   );
 };

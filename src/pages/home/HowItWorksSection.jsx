@@ -1,5 +1,4 @@
-import React from 'react';
-
+import Reveal from '@components/motion/Reveal';
 const steps = [
   {
     step: '01',
@@ -28,7 +27,8 @@ const steps = [
 const HowItWorksSection = () => {
   return (
     <section className="container mt-32">
-      {/* top - heading */}
+    <Reveal>
+        {/* top - heading */}
       <div className="text-center">
         <div className="flex gap-2 lg:gap-4 items-center  justify-center mb-3">
           <div className="bg-brand-primary w-3 h-7 lg:h-10"></div>
@@ -73,6 +73,7 @@ const HowItWorksSection = () => {
           ))}
         </div>
       </div>
+    </Reveal>
     </section>
   );
 };

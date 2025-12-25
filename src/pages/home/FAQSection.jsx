@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import Reveal from '@components/motion/Reveal';
 
 const leftFaqs = [
   {
@@ -99,42 +100,44 @@ const FAQSection = () => {
 
   return (
     <section className="container mt-32">
-      {/* top - heading */}
-      <div className="text-center mb-16">
-        <div className="flex gap-2 lg:gap-4 items-center  justify-center mb-3">
-          <div className="bg-brand-primary w-3 h-7 lg:h-10"></div>
-          <h1 className="text-3xl md:text-4xl lg:text-5xl font-semibold leading-tight">
-            Frequently Asked Questions
-          </h1>
+      <Reveal>
+        {/* top - heading */}
+        <div className="text-center mb-16">
+          <div className="flex gap-2 lg:gap-4 items-center  justify-center mb-3">
+            <div className="bg-brand-primary w-3 h-7 lg:h-10"></div>
+            <h1 className="text-3xl md:text-4xl lg:text-5xl font-semibold leading-tight">
+              Frequently Asked Questions
+            </h1>
+          </div>
+
+          <p className="text-text-secondary/70 md:text-lg">
+            Clear answers to common questions, so you can get started with
+            confidence.
+          </p>
         </div>
 
-        <p className="text-text-secondary/70 md:text-lg">
-          Clear answers to common questions, so you can get started with
-          confidence.
-        </p>
-      </div>
+        {/* faq columns */}
+        <div className="grid gap-x-16 lg:grid-cols-2">
+          <div className="divide-y divide-bg-elevated">
+            {renderFaqColumn(leftFaqs, 0)}
+          </div>
 
-      {/* faq columns */}
-      <div className="grid gap-x-16 lg:grid-cols-2">
-        <div className="divide-y divide-bg-elevated">
-          {renderFaqColumn(leftFaqs, 0)}
+          <div className="divide-y divide-bg-elevated">
+            {renderFaqColumn(rightFaqs, leftFaqs.length)}
+          </div>
         </div>
 
-        <div className="divide-y divide-bg-elevated">
-          {renderFaqColumn(rightFaqs, leftFaqs.length)}
+        {/* bottom - call to action */}
+        <div className="mt-20 text-center">
+          <p className="text-text-secondary/70">Still have questions?</p>
+          <a
+            href="/contact"
+            className="text-brand-primary hover:text-brand-hover transition-colors font-medium"
+          >
+            Contact our support team
+          </a>
         </div>
-      </div>
-
-      {/* bottom - call to action */}
-      <div className="mt-20 text-center">
-        <p className="text-text-secondary/70">Still have questions?</p>
-        <a
-          href="/contact"
-          className="text-brand-primary hover:text-brand-hover transition-colors font-medium"
-        >
-          Contact our support team
-        </a>
-      </div>
+      </Reveal>
     </section>
   );
 };

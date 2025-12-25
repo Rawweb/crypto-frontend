@@ -1,4 +1,5 @@
 import React from 'react';
+import Reveal from '@components/motion/Reveal';
 
 const trustMetrics = [
   { value: '100%', label: 'Encrypted Transactions' },
@@ -10,7 +11,8 @@ const trustMetrics = [
 const SecurityTrustSection = () => {
   return (
     <section className="mt-32">
-      <div className="bg-bg-surface/80 border-y border-bg-elevated">
+      <Reveal>
+        <div className="bg-bg-surface/80 border-y border-bg-elevated">
         <div className="max-w-4xl mx-auto text-center py-16 px-4 sm:px-6 lg:px-8">
           {/* heading */}
           <div className="flex gap-2 lg:gap-4 items-center justify-center mb-6">
@@ -44,6 +46,7 @@ const SecurityTrustSection = () => {
           </div>
         </div>
       </div>
+      </Reveal>
     </section>
   );
 };
