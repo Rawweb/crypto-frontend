@@ -14,7 +14,7 @@ const HomePage = () => {
       <Hero />
       <CryptoMarquee />
       <WhyOurPlatformSection />
-      <HowItWorksSection />
+      <HowItWorksSection variant="home" />
       <EarningsSection />
       <SecurityTrustSection />
       <TestimonialsSection />

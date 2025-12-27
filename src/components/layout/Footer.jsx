@@ -8,8 +8,8 @@ const Footer = () => {
   const footerLinks = {
     pages: [
       { label: 'About', path: '/about' },
-      { label: 'Contact', path: '/contact' },
       { label: 'Buy & Sell', path: '/sell' },
+      { label: 'Contact', path: '/contact' },
     ],
     legal: [
       { label: 'Privacy Policy', path: '/privacy' },

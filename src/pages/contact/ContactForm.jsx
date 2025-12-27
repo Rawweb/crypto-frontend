@@ -1,5 +1,7 @@
 import { useState, useEffect } from 'react';
 import Reveal from '@components/motion/Reveal';
+import api from '@api/axios';
+
 
 const ContactForm = () => {
   const [status, setStatus] = useState('idle');
@@ -22,11 +24,12 @@ const ContactForm = () => {
     return () => clearTimeout(timer);
   }, [status]);
 
-  const handleChange = e => {
-    setForm({ ...form, [e.target.name]: e.target.value });
-  };
+ const handleChange = e => {
+  setForm({ ...form, [e.target.name]: e.target.value });
+};
 
-  const handleSubmit = e => {
+
+  const handleSubmit = async e => {
     e.preventDefault();
 
     if (!form.name || !form.email || !form.message) {
@@ -34,13 +37,21 @@ const ContactForm = () => {
       return;
     }
 
-    setStatus('loading');
+    try {
+      setStatus('loading');
 
-    // simulate network delay
-    setTimeout(() => {
-      setStatus('success');
-      setForm({ name: '', email: '', subject: '', message: '' });
-    }, 1200);
+      const res = await api.post('/api/contact/submit', form);
+
+      if (res.data.success) {
+        setStatus('success');
+        setForm({ name: '', email: '', subject: '', message: '' });
+      } else {
+        setStatus('error');
+      }
+    } catch (error) {
+      console.error(error);
+      setStatus('error');
+    }
   };
 
   const isDisabled = status === 'loading' || status === 'success';

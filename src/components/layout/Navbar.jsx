@@ -11,8 +11,8 @@ const Navbar = () => {
   const navLinks = [
     { path: '/', icon: <FiHome className="size-5" /> },
     { label: 'About', path: '/about' },
-    { label: 'Contact', path: '/contact' },
     { label: 'Buy & Sell', path: '/sell' },
+    { label: 'Contact', path: '/contact' },
   ];
   return (
     <nav className="fixed top-0 left-0 right-0 backdrop-blur-md z-50 border-b border-bg-elevated font-medium md:text-sm lg:text-base">

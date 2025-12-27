@@ -10,7 +10,6 @@ const Login = () => {
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
 
-
   const handleLogin = async e => {
     e.preventDefault();
     setError('');
@@ -61,7 +60,7 @@ const Login = () => {
             type="email"
             value={email}
             onChange={e => setEmail(e.target.value)}
-            placeholder='johndoe@example.com'
+            placeholder="johndoe@example.com"
             className="mt-1 w-full rounded-xl bg-bg-main border border-bg-elevated px-4 py-3 focus:outline-none focus:border-brand-primary"
           />
         </div>
@@ -72,7 +71,7 @@ const Login = () => {
             type="password"
             value={password}
             onChange={e => setPassword(e.target.value)}
-            placeholder='password'
+            placeholder="password"
             className="mt-1 w-full rounded-xl bg-bg-main border border-bg-elevated px-4 py-3 focus:outline-none focus:border-brand-primary"
           />
         </div>
