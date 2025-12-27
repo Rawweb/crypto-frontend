@@ -7,6 +7,7 @@
       "@pages/*": ["pages/*"],
       "@api/*": ["api/*"],
       "@sections/*": ["sections/*"],
+      "@context/*": ["context/*"],
       "@data/*": ["data/*"],
       "@assets/*": ["assets/*"],
       "@lib/*": ["lib/*"]
@@ -14,3 +15,4 @@
   },
   "include": ["src"]
 }
+

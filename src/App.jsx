@@ -22,6 +22,9 @@ import Wallet from '@pages/wallets/Wallet';
 
 import RequireVerified from '@components/guards/RequireVerified';
 import ScrollToTop from '@components/utils/ScrollToTop';
+import DashboardLayout from '@layouts/DashboardLayout';
+import DepositPage from '@pages/deposit/DepositPage';
+import WithdrawPage from '@pages/withdrawal/WithdrawPage';
 
 const App = () => {
   const [user, setUser] = useState(() =>
@@ -60,12 +63,14 @@ const App = () => {
         <Route
           element={
             <RequireVerified user={user}>
-              <UserLayout />
+              <DashboardLayout />
             </RequireVerified>
           }
         >
           <Route path="dashboard" element={<Dashboard />} />
           <Route path="wallet" element={<Wallet />} />
+          <Route path="wallet/deposit" element={<DepositPage />} />
+          <Route path="wallet/withdraw" element={<WithdrawPage />} />
         </Route>
 
         {/* admin */}
