@@ -57,7 +57,7 @@ const groupByDate = items =>
 
 const PAGE_SIZE = 10;
 
-const WalletRecentActivity = () => {
+const WalletRecentActivity = ({ filter = 'all' }) => {
   const [allActivity, setAllActivity] = useState([]);
   const [loading, setLoading] = useState(true);
   const [page, setPage] = useState(1);
@@ -65,15 +65,25 @@ const WalletRecentActivity = () => {
   useEffect(() => {
     const fetchActivity = async () => {
       try {
-        const [depositsRes, withdrawalsRes] = await Promise.all([
-          api.get('/wallet/deposits'),
-          api.get('/wallet/withdrawals'),
-        ]);
+        let activity = [];
 
-        const combined = [
-          ...depositsRes.data.map(d => ({ ...d, type: 'Deposit' })),
-          ...withdrawalsRes.data.map(w => ({ ...w, type: 'Withdrawal' })),
-        ].sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+        if (filter === 'deposit' || filter === 'all') {
+          const depositsRes = await api.get('/wallet/deposits');
+          activity.push(
+            ...depositsRes.data.map(d => ({ ...d, type: 'Deposit' }))
+          );
+        }
+
+        if (filter === 'withdrawal' || filter === 'all') {
+          const withdrawalsRes = await api.get('/wallet/withdrawals');
+          activity.push(
+            ...withdrawalsRes.data.map(w => ({ ...w, type: 'Withdrawal' }))
+          );
+        }
+
+        const combined = activity.sort(
+          (a, b) => new Date(b.createdAt) - new Date(a.createdAt)
+        );
 
         setAllActivity(combined);
       } catch (error) {
@@ -84,7 +94,7 @@ const WalletRecentActivity = () => {
     };
 
     fetchActivity();
-  }, []);
+  }, [filter]);
 
   if (loading) {
     return <div className="h-48 bg-bg-elevated rounded-xl" />;
@@ -102,13 +112,15 @@ const WalletRecentActivity = () => {
   return (
     <div className="bg-bg-surface border border-bg-elevated rounded-xl p-6">
       <h2 className="font-semibold uppercase mb-5">
-        Recent Activity
+        {filter === 'deposit'
+          ? 'Deposit History'
+          : filter === 'withdrawal'
+          ? 'Withdrawal History'
+          : 'Recent Activity'}
       </h2>
 
       {paginatedActivity.length === 0 ? (
-        <p className="text-sm text-text-muted">
-          No recent activity yet.
-        </p>
+        <p className="text-sm text-text-muted">No recent activity yet.</p>
       ) : (
         <div className="space-y-6">
           {Object.entries(groupedActivity).map(([day, items]) => (
@@ -173,8 +185,7 @@ const WalletRecentActivity = () => {
                             status?.text ?? 'text-text-muted'
                           }`}
                         >
-                          {isDeposit ? '+' : '-'}$
-                          {item.amount.toFixed(2)}
+                          {isDeposit ? '+' : '-'}${item.amount.toFixed(2)}
                         </p>
                       </div>
                     </li>

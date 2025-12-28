@@ -25,6 +25,11 @@ import ScrollToTop from '@components/utils/ScrollToTop';
 import DashboardLayout from '@layouts/DashboardLayout';
 import DepositPage from '@pages/deposit/DepositPage';
 import WithdrawPage from '@pages/withdrawal/WithdrawPage';
+import AdminDeposits from '@pages/deposit/AdminDeposits';
+import ActiveInvestments from '@pages/investments/ActiveInvestments';
+import CompletedInvestments from '@pages/investments/CompletedInvestments';
+import InvestmentOverview from '@pages/investments/InvestmentOverview';
+import InvestmentPlans from '@pages/investments/InvestmentPlans';
 
 const App = () => {
   const [user, setUser] = useState(() =>
@@ -68,13 +73,23 @@ const App = () => {
           }
         >
           <Route path="dashboard" element={<Dashboard />} />
+
           <Route path="wallet" element={<Wallet />} />
           <Route path="wallet/deposit" element={<DepositPage />} />
           <Route path="wallet/withdraw" element={<WithdrawPage />} />
+
+          <Route path="/investments" element={<InvestmentOverview />} />
+          <Route path="/investments/invest" element={<InvestmentPlans />} />
+          <Route path="/investments/active" element={<ActiveInvestments />} />
+          <Route
+            path="/investments/completed"
+            element={<CompletedInvestments />}
+          />
         </Route>
 
         {/* admin */}
         <Route element={<AdminLayout />} />
+        <Route path="admin/deposits" element={<AdminDeposits />} />
       </Routes>
     </Router>
   );
