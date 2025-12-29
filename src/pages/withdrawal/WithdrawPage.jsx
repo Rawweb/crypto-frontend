@@ -1,8 +1,10 @@
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import api from '@api/axios';
-import { FiCheckCircle, FiAlertCircle } from 'react-icons/fi';
+import { FiCheckCircle, FiAlertCircle, FiCopy, FiCheck } from 'react-icons/fi';
 import WalletRecentActivity from '@pages/wallets/WalletRecentActivity';
+
+const shorten = addr => `${addr.slice(0, 6)}…${addr.slice(-4)}`;
 
 const NETWORKS = {
   USDT_TRON: {
@@ -39,22 +41,33 @@ const WithdrawPage = () => {
   const [status, setStatus] = useState('idle'); // idle | submitting | success | error
   const [message, setMessage] = useState('');
 
+  const [copied, setCopied] = useState(false);
+
+  const copyAddress = () => {
+    if (!address) return;
+    navigator.clipboard.writeText(address);
+    setCopied(true);
+    setTimeout(() => setCopied(false), 1200);
+  };
+
   const isAddressValid = network && NETWORKS[network].regex.test(address);
 
   /* =========================
       FETCH SAVED ADDRESSES
   ========================== */
   useEffect(() => {
-    const fetchSavedAddresses = async () => {
-      try {
-        const res = await api.get('/wallet/saved-addresses');
-        setSavedAddresses(res.data);
-      } catch (err) {
-        console.error('Failed to load saved addresses');
+    const fetchSaved = async () => {
+      const res = await api.get('/wallet/saved-wallets');
+      setSavedAddresses(res.data);
+
+      const def = res.data.find(w => w.isDefault);
+      if (def) {
+        setNetwork(def.network);
+        setAddress(def.address);
       }
     };
 
-    fetchSavedAddresses();
+    fetchSaved();
   }, []);
 
   /* =========================
@@ -152,35 +165,35 @@ const WithdrawPage = () => {
 
           {/* Saved addresses */}
           {savedAddresses.length > 0 && (
-            <div>
-              <label className="text-sm text-text-muted mb-1 block">
-                Saved Addresses
-              </label>
+            <div className="space-y-2">
+              <label className="text-sm text-text-muted">Saved wallets</label>
 
-              <select
-                value=""
-                onChange={e => {
-                  const selected = savedAddresses.find(
-                    a => a._id === e.target.value
-                  );
-
-                  if (selected) {
-                    setNetwork(selected.network);
-                    setAddress(selected.address);
-                    setStatus('idle');
-                    setMessage('');
-                  }
-                }}
-                className="w-full bg-bg-main border border-bg-elevated rounded-lg px-3 py-2"
-              >
-                <option value="">Select saved address</option>
-                {savedAddresses.map(addr => (
-                  <option key={addr._id} value={addr._id}>
-                    {addr.network} — {addr.address.slice(0, 6)}…
-                    {addr.address.slice(-4)}
-                  </option>
+              <div className="grid gap-2">
+                {savedAddresses.map(w => (
+                  <button
+                    key={w._id}
+                    type="button"
+                    onClick={() => {
+                      setNetwork(w.network);
+                      setAddress(w.address);
+                      setStatus('idle');
+                      setMessage('');
+                    }}
+                    className={`p-3 rounded-lg border text-sm text-left ${
+                      address === w.address
+                        ? 'border-brand-primary bg-bg-elevated'
+                        : 'border-bg-elevated'
+                    }`}
+                  >
+                    {w.network} — {shorten(w.address)}
+                    {w.isDefault && (
+                      <span className="ml-2 text-xs text-brand-primary">
+                        Default
+                      </span>
+                    )}
+                  </button>
                 ))}
-              </select>
+              </div>
             </div>
           )}
 
@@ -189,25 +202,40 @@ const WithdrawPage = () => {
             <label className="text-sm text-text-muted mb-1 block">
               Wallet Address
             </label>
-            <input
-              type="text"
-              value={address}
-              onChange={e => setAddress(e.target.value.trim())}
-              placeholder={
-                network ? NETWORKS[network].placeholder : 'Select network first'
-              }
-              disabled={!network}
-              className={`w-full bg-bg-main border rounded-lg px-3 py-2 ${
-                !network
-                  ? 'opacity-50 cursor-not-allowed'
-                  : isAddressValid
-                  ? 'border-green-500'
-                  : address
-                  ? 'border-red-500'
-                  : 'border-bg-elevated'
-              }`}
-              required
-            />
+
+            <div className="relative">
+              <input
+                type="text"
+                value={address}
+                onChange={e => setAddress(e.target.value.trim())}
+                placeholder={
+                  network
+                    ? NETWORKS[network].placeholder
+                    : 'Select network first'
+                }
+                disabled={!network}
+                className={`w-full pr-12 bg-bg-main border rounded-lg px-3 py-2 ${
+                  !network
+                    ? 'opacity-50 cursor-not-allowed'
+                    : isAddressValid
+                    ? 'border-green-500'
+                    : address
+                    ? 'border-red-500'
+                    : 'border-bg-elevated'
+                }`}
+                required
+              />
+
+              {address && (
+                <button
+                  type="button"
+                  onClick={copyAddress}
+                  className="absolute right-3 top-1/2 -translate-y-1/2 text-text-muted hover:text-text-main"
+                >
+                  {copied ? <FiCheck /> : <FiCopy />}
+                </button>
+              )}
+            </div>
           </div>
 
           {/* Status message */}

@@ -12,7 +12,7 @@ const navItems = [
   { label: 'Wallet', path: '/wallet', icon: FiCreditCard },
   { label: 'Investments', path: '/investments', icon: FiTrendingUp },
   { label: 'Notifications', path: '/notifications', icon: FiBell },
-  { label: 'Profile', path: '/profile', icon: FiUser },
+  { label: 'Account', path: '/account', icon: FiUser },
 ];
 
 const Sidebar = () => {

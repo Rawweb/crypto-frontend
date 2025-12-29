@@ -32,7 +32,10 @@ import InvestmentOverview from '@pages/investments/InvestmentOverview';
 import InvestmentPlans from '@pages/investments/InvestmentPlans';
 import InvestmentDetails from '@pages/investments/InvestmentsDetails';
 import ProfitHistory from '@pages/investments/ProfitHistory';
-import ProfilePage from '@pages/profile/ProfilePage';
+import Account from '@pages/Account/Account';
+import Notification from '@pages/notifications/Notification';
+import Profile from '@pages/Account/Profile';
+import AccountSettings from '@pages/Account/AccountSettings';
 
 const App = () => {
   const [user, setUser] = useState(() =>
@@ -77,10 +80,12 @@ const App = () => {
         >
           <Route path="dashboard" element={<Dashboard />} />
 
+          {/* wallet */}
           <Route path="wallet" element={<Wallet />} />
           <Route path="wallet/deposit" element={<DepositPage />} />
           <Route path="wallet/withdraw" element={<WithdrawPage />} />
 
+          {/* investments */}
           <Route path="/investments" element={<InvestmentOverview />} />
           <Route path="/investments/invest" element={<InvestmentPlans />} />
           <Route path="/investments/active" element={<ActiveInvestments />} />
@@ -91,7 +96,13 @@ const App = () => {
             element={<CompletedInvestments />}
           />
 
-          <Route path="profile" element={<ProfilePage />} />
+          {/* account */}
+          <Route path="account" element={<Account />} />
+          <Route path="/account/profile" element={<Profile />} />
+          <Route path="/account/settings" element={<AccountSettings />} />
+
+          {/* notifications */}
+          <Route path="notifications" element={<Notification />} />
         </Route>
 
         {/* admin */}

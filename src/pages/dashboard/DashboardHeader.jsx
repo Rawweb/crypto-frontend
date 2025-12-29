@@ -98,7 +98,7 @@ const DashboardHeader = () => {
         </button>
 
         {open && (
-          <div className="absolute right-0 top-12 w-48 bg-bg-elevated rounded-xl shadow-lg overflow-hidden">
+          <div className="absolute right-0 top-12 w-48 bg-bg-elevated rounded-xl shadow-lg overflow-hidden z-10">
             {/* dropdown header */}
             <div className="px-4 py-3 border-b border-bg-surface">
               <p className="text-sm font-medium uppercase mb-1">
@@ -110,7 +110,7 @@ const DashboardHeader = () => {
             {/* actions */}
             <button
               onClick={() => {
-                navigate('/profile');
+                navigate('/account/profile');
                 setOpen(false);
               }}
               className="flex items-center gap-2 w-full text-left px-4 py-3 hover:bg-bg-surface text-sm"
@@ -121,7 +121,7 @@ const DashboardHeader = () => {
 
             <button
               onClick={() => {
-                navigate('/settings');
+                navigate('/account/settings');
                 setOpen(false);
               }}
               className="flex items-center gap-2 w-full text-left px-4 py-3 hover:bg-bg-surface text-sm"

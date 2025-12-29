@@ -3,13 +3,15 @@ import WalletHeroBalance from '@pages/wallets/WalletHeroBalance';
 import WalletBreakdown from '@pages/wallets/WalletBreakdown';
 import WalletActions from '@pages/wallets/WalletActions';
 import WalletRecentActivity from './WalletRecentActivity';
+import SavedWallets from './SavedWallets';
 
 const Wallet = () => {
   return (
-    <div className="space-y-8">
+    <div className="space-y-10">
       <WalletHeroBalance />
       <WalletBreakdown />
       <WalletActions />
+      <SavedWallets />
       <WalletRecentActivity />
     </div>
   );
