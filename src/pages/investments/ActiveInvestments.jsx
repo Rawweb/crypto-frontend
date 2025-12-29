@@ -32,6 +32,9 @@ const calcProgress = (startDate, endDate) => {
 const ActiveInvestments = () => {
   const navigate = useNavigate();
 
+  const PAGE_SIZE = 6;
+  const [page, setPage] = useState(1);
+
   const [investments, setInvestments] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
@@ -52,6 +55,11 @@ const ActiveInvestments = () => {
     fetchInvestments();
   }, []);
 
+  /* reset page if list size changes */
+  useEffect(() => {
+    setPage(1);
+  }, [investments.length]);
+
   /* ---------------- derived values ---------------- */
 
   const totalInvested = investments.reduce((sum, inv) => sum + inv.amount, 0);
@@ -61,12 +69,19 @@ const ActiveInvestments = () => {
     0
   );
 
-  /* ---------------- loading state ---------------- */
+  const totalPages = Math.ceil(investments.length / PAGE_SIZE);
+
+  const paginatedInvestments = investments.slice(
+    (page - 1) * PAGE_SIZE,
+    page * PAGE_SIZE
+  );
+
+  /* ---------------- loading ---------------- */
 
   if (loading) {
     return (
       <div className="space-y-6 animate-pulse">
-        <div className="h-6 w-32 bg-bg-elevated rounded" />
+        <div className="h-6 w-40 bg-bg-elevated rounded" />
         <div className="grid gap-4 sm:grid-cols-3">
           <div className="h-20 bg-bg-elevated rounded-xl" />
           <div className="h-20 bg-bg-elevated rounded-xl" />
@@ -144,14 +159,17 @@ const ActiveInvestments = () => {
 
       {/* LIST */}
       <div className="space-y-4">
-        {investments.map(inv => {
-          const progress = calcProgress(inv.startDate, inv.endDate);
+        {paginatedInvestments.map(inv => {
+          const progress =
+            inv.status === 'completed'
+              ? 100
+              : calcProgress(inv.startDate, inv.endDate);
 
           return (
             <div
               key={inv._id}
               onClick={() => navigate(`/investments/${inv._id}`)}
-              className="bg-bg-surface border border-bg-elevated rounded-xl p-6"
+              className="bg-bg-surface border border-bg-elevated rounded-xl p-6 cursor-pointer hover:bg-bg-elevated transition"
             >
               {/* TOP */}
               <div className="flex items-start justify-between gap-4 mb-4">
@@ -206,23 +224,31 @@ const ActiveInvestments = () => {
                   />
                 </div>
               </div>
-
-              {/* ACTIONS
-              <div className="mt-4 flex justify-end">
-                <button
-                  onClick={e => {
-                    e.stopPropagation();
-                    navigate('/wallet');
-                  }}
-                  className="text-sm text-brand-primary hover:underline"
-                >
-                  Withdraw
-                </button>
-              </div> */}
             </div>
           );
         })}
       </div>
+
+      {/* PAGINATION */}
+      {totalPages > 1 && (
+        <div className="flex justify-center gap-4 pt-4">
+          <button
+            disabled={page === 1}
+            onClick={() => setPage(p => p - 1)}
+            className="px-4 py-2 rounded-lg bg-bg-elevated text-sm disabled:opacity-40 hover:bg-bg-main"
+          >
+            Previous
+          </button>
+
+          <button
+            disabled={page === totalPages}
+            onClick={() => setPage(p => p + 1)}
+            className="px-4 py-2 rounded-lg bg-bg-elevated text-sm disabled:opacity-40 hover:bg-bg-main"
+          >
+            Next
+          </button>
+        </div>
+      )}
     </div>
   );
 };

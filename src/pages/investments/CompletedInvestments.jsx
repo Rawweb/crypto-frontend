@@ -21,6 +21,9 @@ const formatCurrency = value =>
 const CompletedInvestments = () => {
   const navigate = useNavigate();
 
+  const PAGE_SIZE = 6;
+  const [page, setPage] = useState(1);
+
   const [investments, setInvestments] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
@@ -41,6 +44,11 @@ const CompletedInvestments = () => {
     fetchInvestments();
   }, []);
 
+  /* reset page if list changes */
+  useEffect(() => {
+    setPage(1);
+  }, [investments.length]);
+
   /* ---------------- derived values ---------------- */
 
   const totalInvested = investments.reduce((sum, inv) => sum + inv.amount, 0);
@@ -50,12 +58,19 @@ const CompletedInvestments = () => {
     0
   );
 
+  const totalPages = Math.ceil(investments.length / PAGE_SIZE);
+
+  const paginatedInvestments = investments.slice(
+    (page - 1) * PAGE_SIZE,
+    page * PAGE_SIZE
+  );
+
   /* ---------------- loading ---------------- */
 
   if (loading) {
     return (
       <div className="space-y-6 animate-pulse">
-        <div className="h-6 w-40 bg-bg-elevated rounded" />
+        <div className="h-6 w-48 bg-bg-elevated rounded" />
         <div className="grid gap-4 sm:grid-cols-3">
           <div className="h-20 bg-bg-elevated rounded-xl" />
           <div className="h-20 bg-bg-elevated rounded-xl" />
@@ -132,11 +147,11 @@ const CompletedInvestments = () => {
 
       {/* LIST */}
       <div className="space-y-4">
-        {investments.map(inv => (
+        {paginatedInvestments.map(inv => (
           <div
             key={inv._id}
             onClick={() => navigate(`/investments/${inv._id}`)}
-            className="bg-bg-surface border border-bg-elevated rounded-xl p-6"
+            className="bg-bg-surface border border-bg-elevated rounded-xl p-6 cursor-pointer hover:bg-bg-elevated transition"
           >
             {/* TOP */}
             <div className="flex items-start justify-between gap-4 mb-4">
@@ -145,7 +160,10 @@ const CompletedInvestments = () => {
                   {inv.planId?.name || 'Deleted plan'}
                 </h3>
                 <p className="text-sm text-text-muted">
-                  Completed on {new Date(inv.endDate).toLocaleDateString()}
+                  Completed on{' '}
+                  {inv.endDate
+                    ? new Date(inv.endDate).toLocaleDateString()
+                    : '—'}
                 </p>
               </div>
 
@@ -172,14 +190,40 @@ const CompletedInvestments = () => {
               <div>
                 <p className="text-text-muted">Duration</p>
                 <p className="font-medium">
-                  {new Date(inv.startDate).toLocaleDateString()} –{' '}
-                  {new Date(inv.endDate).toLocaleDateString()}
+                  {inv.startDate
+                    ? new Date(inv.startDate).toLocaleDateString()
+                    : '—'}{' '}
+                  –{' '}
+                  {inv.endDate
+                    ? new Date(inv.endDate).toLocaleDateString()
+                    : '—'}
                 </p>
               </div>
             </div>
           </div>
         ))}
       </div>
+
+      {/* PAGINATION */}
+      {totalPages > 1 && (
+        <div className="flex justify-center gap-4 pt-4">
+          <button
+            disabled={page === 1}
+            onClick={() => setPage(p => p - 1)}
+            className="px-4 py-2 rounded-lg bg-bg-elevated text-sm disabled:opacity-40 hover:bg-bg-main"
+          >
+            Previous
+          </button>
+
+          <button
+            disabled={page === totalPages}
+            onClick={() => setPage(p => p + 1)}
+            className="px-4 py-2 rounded-lg bg-bg-elevated text-sm disabled:opacity-40 hover:bg-bg-main"
+          >
+            Next
+          </button>
+        </div>
+      )}
     </div>
   );
 };

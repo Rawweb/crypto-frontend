@@ -44,6 +44,9 @@ const InvestmentOverview = () => {
 
   const navigate = useNavigate();
 
+  const PAGE_SIZE = 5;
+  const [page, setPage] = useState(1);
+
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -68,13 +71,24 @@ const InvestmentOverview = () => {
     0
   );
 
+  // Count
   const activeCount = investments.filter(inv => inv.status === 'active').length;
 
   const completedCount = investments.filter(
     inv => inv.status === 'completed'
   ).length;
 
-  const recentInvestments = investments.slice(0, 5);
+  // Pagination
+  const totalPages = Math.ceil(investments.length / PAGE_SIZE);
+
+  const paginatedInvestments = investments.slice(
+    (page - 1) * PAGE_SIZE,
+    page * PAGE_SIZE
+  );
+
+  useEffect(() => {
+    setPage(1);
+  }, [investments.length]);
 
   const stats = [
     {
@@ -211,29 +225,23 @@ const InvestmentOverview = () => {
 
       {/* RECENT INVESTMENTS */}
       <div className="bg-bg-surface border border-bg-elevated rounded-xl p-6">
-        <div className="flex items-center justify-between mb-4">
+        <div className="mb-4">
           <h3 className="font-semibold">Recent Investments</h3>
-          <Link
-            to="/investments/active"
-            className="text-sm text-brand-primary hover:underline"
-          >
-            View all
-          </Link>
         </div>
 
         {loading ? (
           <p className="text-sm text-text-muted">Loading investments...</p>
-        ) : recentInvestments.length === 0 ? (
+        ) : investments.length === 0 ? (
           <p className="text-sm text-text-muted">
             You haven’t made any investments yet.
           </p>
         ) : (
           <div className="space-y-4">
-            {recentInvestments.map(inv => (
+            {paginatedInvestments.map(inv => (
               <div
                 key={inv._id}
                 onClick={() => navigate(`/investments/${inv._id}`)}
-                className="flex items-center justify-between border border-bg-elevated rounded-lg p-4"
+                className="flex items-center justify-between border border-bg-elevated rounded-lg p-4 cursor-pointer"
               >
                 <div>
                   <p className="font-medium">
@@ -247,6 +255,26 @@ const InvestmentOverview = () => {
                 <StatusBadge status={inv.status} />
               </div>
             ))}
+          </div>
+        )}
+
+        {totalPages > 1 && (
+          <div className="flex justify-center gap-4 mt-6">
+            <button
+              disabled={page === 1}
+              onClick={() => setPage(p => p - 1)}
+              className="px-4 py-2 rounded-lg bg-bg-elevated text-sm disabled:opacity-40 hover:bg-bg-main"
+            >
+              Previous
+            </button>
+
+            <button
+              disabled={page === totalPages}
+              onClick={() => setPage(p => p + 1)}
+              className="px-4 py-2 rounded-lg bg-bg-elevated text-sm disabled:opacity-40 hover:bg-bg-main"
+            >
+              Next
+            </button>
           </div>
         )}
       </div>

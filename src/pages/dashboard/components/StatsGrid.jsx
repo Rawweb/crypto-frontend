@@ -67,7 +67,7 @@ const StatsGrid = () => {
       icon: FiLock,
     },
     {
-      label: 'Invested / Locked',
+      label: 'Locked Balance',
       value: `$${wallet.lockedBalance.toFixed(2)}`,
       icon: FiTrendingUp,
     },

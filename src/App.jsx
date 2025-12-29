@@ -30,6 +30,9 @@ import ActiveInvestments from '@pages/investments/ActiveInvestments';
 import CompletedInvestments from '@pages/investments/CompletedInvestments';
 import InvestmentOverview from '@pages/investments/InvestmentOverview';
 import InvestmentPlans from '@pages/investments/InvestmentPlans';
+import InvestmentDetails from '@pages/investments/InvestmentsDetails';
+import ProfitHistory from '@pages/investments/ProfitHistory';
+import ProfilePage from '@pages/profile/ProfilePage';
 
 const App = () => {
   const [user, setUser] = useState(() =>
@@ -81,10 +84,14 @@ const App = () => {
           <Route path="/investments" element={<InvestmentOverview />} />
           <Route path="/investments/invest" element={<InvestmentPlans />} />
           <Route path="/investments/active" element={<ActiveInvestments />} />
+          <Route path="/investments/:id" element={<InvestmentDetails />} />
+          <Route path="/investments/:id/profits" element={<ProfitHistory />} />
           <Route
             path="/investments/completed"
             element={<CompletedInvestments />}
           />
+
+          <Route path="profile" element={<ProfilePage />} />
         </Route>
 
         {/* admin */}

@@ -34,9 +34,8 @@ const InvestmentDetails = () => {
   useEffect(() => {
     const fetchInvestment = async () => {
       try {
-        const res = await api.get('/investments/my-investments');
-        const found = res.data.find(inv => inv._id === id);
-        setInvestment(found);
+        const res = await api.get(`/investments/${id}`);
+        setInvestment(res.data);
       } catch (err) {
         console.error(err);
       } finally {
@@ -117,14 +116,15 @@ const InvestmentDetails = () => {
       <div className="flex gap-3">
         <button
           onClick={() => navigate(`/investments/${id}/profits`)}
-          className="px-4 py-2 border border-bg-elevated rounded-lg text-sm"
+          className="px-4 py-2 border border-bg-elevated rounded-lg text-sm hover:bg-bg-elevated transition"
         >
           View Profit History
         </button>
 
         <button
+          disabled={investment.profitEarned <= 0}
           onClick={() => navigate('/wallet')}
-          className="px-4 py-2 bg-brand-primary text-black rounded-lg text-sm"
+          className="px-4 py-2 bg-brand-primary text-black rounded-lg text-sm disabled:opacity-40 disabled:cursor-not-allowed"
         >
           Withdraw Profit
         </button>
