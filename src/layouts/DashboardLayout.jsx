@@ -9,6 +9,7 @@ import { NotificationProvider } from '@context/NotificationContext';
 
 
 
+
 const DashboardLayout = () => {
   const [hideNav, setHideNav] = useState(false);
   const [lastScrollY, setLastScrollY] = useState(0);
@@ -37,8 +38,10 @@ const DashboardLayout = () => {
 
         <div className="flex-1 flex flex-col">
           <DashboardHeader />
+          
 
           <main className="flex-1 overflow-y-auto p-6 pb-24 md:pb-6">
+            
             <Outlet />
           </main>
 

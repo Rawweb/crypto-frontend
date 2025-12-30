@@ -1,14 +1,19 @@
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
+import { FiEye, FiEyeOff } from 'react-icons/fi';
 import api from '@api/axios';
+import { useAuth } from '@context/AuthContext';
 
 const Login = () => {
   const navigate = useNavigate();
+  const { login } = useAuth();
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
+
+  const [showPassword, setShowPassword] = useState(false);
 
   const handleLogin = async e => {
     e.preventDefault();
@@ -21,8 +26,11 @@ const Login = () => {
         password,
       });
 
+      // persist token
       localStorage.setItem('token', res.data.token);
-      localStorage.setItem('user', JSON.stringify(res.data.user));
+
+      // update auth context
+      login(res.data.user);
 
       if (!res.data.user.isVerified) {
         navigate('/verify-email');
@@ -45,18 +53,21 @@ const Login = () => {
         <p className="text-text-secondary text-sm">Sign in to continue</p>
       </div>
 
-      {/* error */}
       {error && (
         <div className="bg-red-500/10 text-red-500 text-sm p-3 rounded-xl">
           {error}
         </div>
       )}
 
-      {/* form */}
       <form onSubmit={handleLogin} className="space-y-4">
         <div>
-          <label className="text-sm text-text-muted">Email</label>
+          <label htmlFor="email" className="text-sm text-text-muted">
+            Email
+          </label>
           <input
+            id="email"
+            name="email"
+            autoComplete="email"
             type="email"
             value={email}
             onChange={e => setEmail(e.target.value)}
@@ -66,14 +77,31 @@ const Login = () => {
         </div>
 
         <div>
-          <label className="text-sm text-text-muted">Password</label>
-          <input
-            type="password"
-            value={password}
-            onChange={e => setPassword(e.target.value)}
-            placeholder="password"
-            className="mt-1 w-full rounded-xl bg-bg-main border border-bg-elevated px-4 py-3 focus:outline-none focus:border-brand-primary"
-          />
+          <label htmlFor="password" className="text-sm text-text-muted">
+            Password
+          </label>
+
+          <div className="relative mt-1">
+            <input
+              id="password"
+              name="password"
+              autoComplete="current-password"
+              type={showPassword ? 'text' : 'password'}
+              value={password}
+              onChange={e => setPassword(e.target.value)}
+              placeholder="password"
+              className="w-full rounded-xl bg-bg-main border border-bg-elevated px-4 py-3 pr-12 focus:outline-none focus:border-brand-primary"
+            />
+
+            <button
+              type="button"
+              onClick={() => setShowPassword(prev => !prev)}
+              className="absolute inset-y-0 right-3 flex items-center text-text-muted hover:text-text-primary transition"
+              tabIndex={-1}
+            >
+              {showPassword ? <FiEyeOff size={18} /> : <FiEye size={18} />}
+            </button>
+          </div>
         </div>
 
         <button

@@ -17,7 +17,7 @@ const items = [
   { path: '/wallet', icon: FiCreditCard, label: 'Wallet' },
   { path: '/investments', icon: FiTrendingUp, label: 'Invest' },
   { path: '/notifications', icon: FiBell, label: 'Alerts' },
-  { path: '/profile', icon: FiUser, label: 'Profile' },
+  { path: '/account', icon: FiUser, label: 'Profile' },
 ];
 
 const MobileBottomNav = ({ hidden }) => {

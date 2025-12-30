@@ -65,7 +65,6 @@ const AccountDetailsCard = ({ user, onUserUpdate }) => {
         throw new Error('Invalid response');
       }
 
-      localStorage.setItem('user', JSON.stringify(res.data.user));
       onUserUpdate(res.data.user);
       setEditing(false);
     } catch (err) {
@@ -115,7 +114,6 @@ const AccountDetailsCard = ({ user, onUserUpdate }) => {
         avatar: cloudData.secure_url,
       });
 
-      localStorage.setItem('user', JSON.stringify(res.data.user));
       onUserUpdate(res.data.user);
     } catch (err) {
       console.error(err);

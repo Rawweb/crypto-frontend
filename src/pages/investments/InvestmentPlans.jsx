@@ -4,6 +4,8 @@ import api from '@api/axios';
 import { FiX, FiArrowLeft } from 'react-icons/fi';
 import { FaRocket, FaCrown, FaRegDotCircle } from 'react-icons/fa';
 import { HiTrendingUp } from 'react-icons/hi';
+import { useAuth } from '@context/AuthContext';
+import SuspensionBanner from '@components/common/SuspensionBanner';
 
 const PLAN_ORDER = ['starter', 'growth', 'pro'];
 
@@ -38,13 +40,17 @@ const InvestmentPlans = () => {
   const [selectedPlan, setSelectedPlan] = useState(null);
   const [amount, setAmount] = useState('');
   const [showModal, setShowModal] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   const [status, setStatus] = useState('idle');
   const [message, setMessage] = useState('');
 
+  const { isSuspended } = useAuth();
+
   /* ================= FETCH DATA ================= */
   useEffect(() => {
     const loadData = async () => {
+      setLoading(true);
       try {
         const [plansRes, walletRes] = await Promise.all([
           api.get('/investments/plans'),
@@ -68,6 +74,8 @@ const InvestmentPlans = () => {
         if (growth) setSelectedPlan(growth);
       } catch (err) {
         console.error('Failed to load investment data');
+      } finally {
+        setLoading(false);
       }
     };
 
@@ -105,8 +113,40 @@ const InvestmentPlans = () => {
     }
   };
 
+  // loading
+  if (loading) {
+    return (
+      <div className="space-y-16">
+        <div className="h-6 w-24 bg-bg-elevated rounded animate-pulse" />
+
+        <div className="text-center max-w-2xl mx-auto space-y-3">
+          <div className="h-3 w-32 mx-auto bg-bg-elevated rounded animate-pulse" />
+          <div className="h-8 w-64 mx-auto bg-bg-elevated rounded animate-pulse" />
+          <div className="h-4 w-72 mx-auto bg-bg-elevated rounded animate-pulse" />
+        </div>
+
+        <div className="grid gap-8 grid-cols-1 md:grid-cols-2 xl:grid-cols-3">
+          {[...Array(3)].map((_, i) => (
+            <div
+              key={i}
+              className="rounded-3xl p-7 bg-bg-surface border border-bg-elevated space-y-6 animate-pulse"
+            >
+              <div className="h-32 rounded-2xl bg-bg-elevated" />
+              <div className="space-y-3">
+                <div className="h-4 w-1/2 bg-bg-elevated rounded" />
+                <div className="h-4 w-2/3 bg-bg-elevated rounded" />
+                <div className="h-4 w-1/3 bg-bg-elevated rounded" />
+              </div>
+              <div className="h-10 bg-bg-elevated rounded-xl" />
+            </div>
+          ))}
+        </div>
+      </div>
+    );
+  }
+
   return (
-    <div className="space-y-16 relative">
+    <div className="space-y-10 relative">
       {/* ===== BACK BUTTON (TOP) ===== */}
       <button
         onClick={() => navigate(-1)}
@@ -115,6 +155,9 @@ const InvestmentPlans = () => {
         <FiArrowLeft />
         Back
       </button>
+
+      {/* suspended banner */}
+      <SuspensionBanner/>
 
       {/* ================= HEADER ================= */}
       <div className="text-center max-w-2xl mx-auto">
@@ -138,6 +181,7 @@ const InvestmentPlans = () => {
           const Icon = PLAN_ICONS[key];
           const isFeatured = meta.featured;
           const isSelected = selectedPlan?._id === plan._id;
+          
 
           return (
             <div
@@ -217,11 +261,12 @@ const InvestmentPlans = () => {
 
               {/* CTA */}
               <button
+                disabled={isSuspended}
                 onClick={e => {
                   e.stopPropagation();
                   setShowModal(true);
                 }}
-                className={`w-full py-3 rounded-xl font-semibold transition
+                className={`w-full py-3 rounded-xl font-semibold transition disabled:opacity-50 disabled:cursor-not-allowed
                   ${
                     isFeatured
                       ? 'bg-black text-white'

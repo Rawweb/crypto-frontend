@@ -44,7 +44,7 @@ const InvestmentOverview = () => {
   }, []);
 
   if (loading) {
-    return <div className="h-48 bg-bg-elevated rounded-xl" />;
+    return <div className="h-48 bg-bg-elevated rounded-xl animate-pulse" />;
   }
 
   return (

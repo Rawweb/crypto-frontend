@@ -1,8 +1,15 @@
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import api from '@api/axios';
-import { FiCheckCircle, FiAlertCircle, FiCopy, FiCheck } from 'react-icons/fi';
+import {
+  FiCheckCircle,
+  FiAlertCircle,
+  FiCopy,
+  FiCheck,
+  FiLock,
+} from 'react-icons/fi';
 import WalletRecentActivity from '@pages/wallets/WalletRecentActivity';
+import { useAuth } from '@context/AuthContext';
 
 const shorten = addr => `${addr.slice(0, 6)}…${addr.slice(-4)}`;
 
@@ -31,17 +38,20 @@ const NETWORKS = {
 
 const WithdrawPage = () => {
   const navigate = useNavigate();
+  const { isSuspended } = useAuth();
+
+  const isBlocked = isSuspended;
 
   const [amount, setAmount] = useState('');
   const [network, setNetwork] = useState('');
   const [address, setAddress] = useState('');
-
   const [savedAddresses, setSavedAddresses] = useState([]);
 
-  const [status, setStatus] = useState('idle'); // idle | submitting | success | error
+  const [status, setStatus] = useState('idle');
   const [message, setMessage] = useState('');
-
   const [copied, setCopied] = useState(false);
+
+  const isAddressValid = network && NETWORKS[network].regex.test(address);
 
   const copyAddress = () => {
     if (!address) return;
@@ -49,8 +59,6 @@ const WithdrawPage = () => {
     setCopied(true);
     setTimeout(() => setCopied(false), 1200);
   };
-
-  const isAddressValid = network && NETWORKS[network].regex.test(address);
 
   /* =========================
       FETCH SAVED ADDRESSES
@@ -75,6 +83,7 @@ const WithdrawPage = () => {
   ========================== */
   const handleSubmit = async e => {
     e.preventDefault();
+    if (isBlocked) return;
 
     if (!network) {
       setStatus('error');
@@ -116,14 +125,19 @@ const WithdrawPage = () => {
   return (
     <div className="flex justify-center items-start min-h-[70vh] pt-10">
       <div className="w-full max-w-md space-y-10">
-        {/* =========================
-            WITHDRAW FORM
-        ========================== */}
         <form
           onSubmit={handleSubmit}
           className="bg-bg-surface border border-bg-elevated rounded-xl p-6 space-y-5"
         >
           <h2 className="font-semibold text-lg">Withdraw Funds</h2>
+
+          {/* SUSPENSION BANNER */}
+          {isBlocked && (
+            <div className="flex items-center gap-2 bg-red-500/10 text-red-400 text-sm rounded-lg px-3 py-2">
+              <FiLock />
+              Withdrawals are disabled. Your account is suspended.
+            </div>
+          )}
 
           {/* Amount */}
           <div>
@@ -132,8 +146,8 @@ const WithdrawPage = () => {
               type="number"
               value={amount}
               onChange={e => setAmount(e.target.value)}
-              placeholder="Enter amount"
-              className="w-full bg-bg-main border border-bg-elevated rounded-lg px-3 py-2"
+              disabled={isBlocked}
+              className="w-full bg-bg-main border border-bg-elevated rounded-lg px-3 py-2 disabled:opacity-50 disabled:cursor-not-allowed"
               required
             />
           </div>
@@ -145,13 +159,14 @@ const WithdrawPage = () => {
             </label>
             <select
               value={network}
+              disabled={isBlocked}
               onChange={e => {
                 setNetwork(e.target.value);
                 setAddress('');
                 setStatus('idle');
                 setMessage('');
               }}
-              className="w-full bg-bg-main border border-bg-elevated rounded-lg px-3 py-2"
+              className="w-full bg-bg-main border border-bg-elevated rounded-lg px-3 py-2 disabled:opacity-50 disabled:cursor-not-allowed"
               required
             >
               <option value="">Select network</option>
@@ -173,13 +188,14 @@ const WithdrawPage = () => {
                   <button
                     key={w._id}
                     type="button"
+                    disabled={isBlocked}
                     onClick={() => {
                       setNetwork(w.network);
                       setAddress(w.address);
                       setStatus('idle');
                       setMessage('');
                     }}
-                    className={`p-3 rounded-lg border text-sm text-left ${
+                    className={`p-3 rounded-lg border text-sm text-left disabled:opacity-50 disabled:cursor-not-allowed ${
                       address === w.address
                         ? 'border-brand-primary bg-bg-elevated'
                         : 'border-bg-elevated'
@@ -203,52 +219,22 @@ const WithdrawPage = () => {
               Wallet Address
             </label>
 
-            <div className="relative">
-              <input
-                type="text"
-                value={address}
-                onChange={e => setAddress(e.target.value.trim())}
-                placeholder={
-                  network
-                    ? NETWORKS[network].placeholder
-                    : 'Select network first'
-                }
-                disabled={!network}
-                className={`w-full pr-12 bg-bg-main border rounded-lg px-3 py-2 ${
-                  !network
-                    ? 'opacity-50 cursor-not-allowed'
-                    : isAddressValid
-                    ? 'border-green-500'
-                    : address
-                    ? 'border-red-500'
-                    : 'border-bg-elevated'
-                }`}
-                required
-              />
-
-              {address && (
-                <button
-                  type="button"
-                  onClick={copyAddress}
-                  className="absolute right-3 top-1/2 -translate-y-1/2 text-text-muted hover:text-text-main"
-                >
-                  {copied ? <FiCheck /> : <FiCopy />}
-                </button>
-              )}
-            </div>
+            <input
+              type="text"
+              value={address}
+              disabled={isBlocked || !network}
+              onChange={e => setAddress(e.target.value.trim())}
+              placeholder={
+                network ? NETWORKS[network].placeholder : 'Select network first'
+              }
+              className="w-full bg-bg-main border rounded-lg px-3 py-2 disabled:opacity-50 disabled:cursor-not-allowed"
+              required
+            />
           </div>
 
-          {/* Status message */}
+          {/* Status */}
           {status !== 'idle' && (
-            <div
-              className={`flex items-center gap-2 text-sm rounded-lg px-3 py-2 ${
-                status === 'success'
-                  ? 'bg-green-500/10 text-green-400'
-                  : status === 'error'
-                  ? 'bg-red-500/10 text-red-400'
-                  : ''
-              }`}
-            >
+            <div className="flex items-center gap-2 text-sm">
               {status === 'success' && <FiCheckCircle />}
               {status === 'error' && <FiAlertCircle />}
               <span>{message}</span>
@@ -258,13 +244,12 @@ const WithdrawPage = () => {
           {/* Submit */}
           <button
             type="submit"
-            disabled={status === 'submitting'}
-            className="w-full bg-brand-primary text-black py-2 rounded-lg font-medium hover:bg-brand-hover disabled:opacity-50 disabled:cursor-not-allowed"
+            disabled={isBlocked || status === 'submitting'}
+            className="w-full bg-brand-primary text-black py-2 rounded-lg font-medium disabled:opacity-50 disabled:cursor-not-allowed"
           >
             {status === 'submitting' ? 'Submitting…' : 'Request Withdrawal'}
           </button>
 
-          {/* Back */}
           <button
             type="button"
             onClick={() => navigate('/wallet')}
@@ -274,9 +259,6 @@ const WithdrawPage = () => {
           </button>
         </form>
 
-        {/* =========================
-            WITHDRAWAL HISTORY
-        ========================== */}
         <WalletRecentActivity filter="withdrawal" />
       </div>
     </div>
