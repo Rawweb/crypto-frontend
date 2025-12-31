@@ -104,7 +104,7 @@ const VerifySkeleton = () => (
 ===================================================== */
 const VerifyEmail = () => {
   const navigate = useNavigate();
-  const { user, loading, updateUser, logout } = useAuth();
+  const { user, loading, updateUser, logout, refreshUser } = useAuth();
 
   const [showLogout, setShowLogout] = useState(false);
 
@@ -193,7 +193,7 @@ const VerifyEmail = () => {
         },
       });
 
-      await refreshUser(); // 🔥 critical
+      await refreshUser();
 
       setCooldown(getRemainingSeconds(res.data.nextAllowedAt));
       setStatus('idle');
