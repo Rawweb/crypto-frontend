@@ -14,8 +14,6 @@ import { formatBadgeCount } from '@components/utils/formatBadgeCount';
 import { useAuth } from '@context/AuthContext';
 import ConfirmModal from '@components/ui/ConfirmModal';
 
-const DEV_BADGE_COUNT = 80;
-
 const DashboardHeader = () => {
   const { user, logout } = useAuth();
   const navigate = useNavigate();
@@ -27,8 +25,7 @@ const DashboardHeader = () => {
   const { pathname } = useLocation();
   const title = dashboardTitles[pathname] || 'Dashboard';
 
-  const { unreadCount: realUnreadCount } = useNotifications();
-  const unreadCount = DEV_BADGE_COUNT ?? realUnreadCount;
+  const { unreadCount } = useNotifications();
   const badgeText = formatBadgeCount(unreadCount);
 
   const avatarLetter = user?.username?.charAt(0)?.toUpperCase() || 'U';
@@ -42,8 +39,7 @@ const DashboardHeader = () => {
     };
 
     document.addEventListener('mousedown', handleClickOutside);
-    return () =>
-      document.removeEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
   }, []);
 
   const handleLogout = () => {
@@ -65,7 +61,7 @@ const DashboardHeader = () => {
           >
             <FiBell className="size-6" />
             {badgeText && (
-              <span className="absolute -top-1 -right-2 h-5 px-1 rounded-full bg-brand-primary text-[10px] flex items-center justify-center text-black font-medium">
+              <span className="absolute -top-1 -right-2 h-5 w-5 px-1 rounded-full bg-brand-primary text-[10px] flex items-center justify-center text-black font-medium">
                 {badgeText}
               </span>
             )}
@@ -105,9 +101,7 @@ const DashboardHeader = () => {
                 <p className="text-sm font-medium uppercase mb-1">
                   {user.username}
                 </p>
-                <p className="text-xs text-text-muted truncate">
-                  {user.email}
-                </p>
+                <p className="text-xs text-text-muted truncate">{user.email}</p>
               </div>
 
               <button

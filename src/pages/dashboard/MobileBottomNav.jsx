@@ -9,9 +9,6 @@ import {
 import { useNotifications } from '@context/NotificationContext';
 import { formatBadgeCount } from '@components/utils/formatBadgeCount';
 
-const DEV_BADGE_COUNT = 100;
-// try: 1, 5, 23, 99, 120
-
 const items = [
   { path: '/dashboard', icon: FiGrid, label: 'Home' },
   { path: '/wallet', icon: FiCreditCard, label: 'Wallet' },
@@ -21,8 +18,7 @@ const items = [
 ];
 
 const MobileBottomNav = ({ hidden }) => {
-  const { unreadCount: realUnreadCount } = useNotifications();
-  const unreadCount = DEV_BADGE_COUNT ?? realUnreadCount;
+  const { unreadCount } = useNotifications();
   const badgeText = formatBadgeCount(unreadCount);
 
   return (
@@ -51,9 +47,9 @@ const MobileBottomNav = ({ hidden }) => {
             <div className="relative">
               <Icon className="size-5" />
 
-              {label === 'Alerts' && badgeText  && (
+              {label === 'Alerts' && badgeText && (
                 <span
-                  className={`absolute -top-1 -right-2 h-4 px-1 rounded-full bg-brand-primary text-[9px] flex items-center justify-center text-black font-medium animate-badge ${
+                  className={`absolute -top-1 -right-2 h-4 w-4 px-1 rounded-full bg-brand-primary text-[9px] flex items-center justify-center text-black font-medium animate-badge ${
                     badgeText === '99+' ? 'min-w-4.5' : 'min-w-3.5'
                   } `}
                 >
