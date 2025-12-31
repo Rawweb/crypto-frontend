@@ -6,9 +6,11 @@ const AuthContext = createContext(null);
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
+
   const isSuspended = user?.status === 'suspended';
   const isBanned = user?.status === 'banned';
 
+  // hydrate auth on app load
   useEffect(() => {
     const hydrateAuth = async () => {
       const token = localStorage.getItem('token');
@@ -21,9 +23,9 @@ export const AuthProvider = ({ children }) => {
       try {
         const res = await api.get('/auth/me');
         setUser(res.data.user);
-      } catch (err) {
+      } catch {
+        // invalid or expired token
         localStorage.removeItem('token');
-        localStorage.removeItem('user');
         setUser(null);
       } finally {
         setLoading(false);
@@ -33,45 +35,54 @@ export const AuthProvider = ({ children }) => {
     hydrateAuth();
   }, []);
 
-  const login = userData => {
+  // 🔹 central login - owns token
+  const login = (userData, token) => {
+    localStorage.setItem('token', token);
     setUser(userData);
   };
 
+  // 🔹 central logout
   const logout = async () => {
     try {
       await api.post('/auth/logout');
-    } catch (err) {
-      // even if backend fails, still clear client state
+    } catch {
+      // ignore
     } finally {
       localStorage.removeItem('token');
       setUser(null);
     }
   };
 
+  // 🔹 update user locally
   const updateUser = updatedUser => {
     setUser(updatedUser);
   };
 
+  // 🔹 safe refresh
   const refreshUser = async () => {
+    const token = localStorage.getItem('token');
+    if (!token) return;
+
     try {
       const res = await api.get('/auth/me');
       setUser(res.data.user);
-    } catch (err) {
-      // Token expired or invalid
+    } catch {
+      localStorage.removeItem('token');
       setUser(null);
     }
   };
 
+  // 🔹 refresh on window focus (guarded)
   useEffect(() => {
     const onFocus = () => {
-      if (user) {
+      if (localStorage.getItem('token')) {
         refreshUser();
       }
     };
 
     window.addEventListener('focus', onFocus);
     return () => window.removeEventListener('focus', onFocus);
-  }, [user]);
+  }, []);
 
   return (
     <AuthContext.Provider

@@ -45,11 +45,7 @@ const Register = () => {
     try {
       const res = await api.post('/auth/register', form);
 
-      // persist token
-      localStorage.setItem('token', res.data.token);
-
-      // IMPORTANT: do NOT rely on AuthContext yet
-      login(res.data.user);
+      login(res.data.user, res.data.token);
 
       navigate('/verify-email', { replace: true });
     } catch (err) {

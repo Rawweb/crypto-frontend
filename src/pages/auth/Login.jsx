@@ -32,11 +32,8 @@ const Login = () => {
         password,
       });
 
-      // persist token
-      localStorage.setItem('token', res.data.token);
+      login(res.data.user, res.data.token);
 
-      // update auth context
-      login(res.data.user);
 
       if (!res.data.user.isVerified) {
         navigate('/verify-email', { replace: true });
