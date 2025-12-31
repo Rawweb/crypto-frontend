@@ -5,6 +5,9 @@ const api = axios.create({
     ? '/api'
     : `${import.meta.env.VITE_API_BASE_URL}/api`,
   withCredentials: true,
+  headers: {
+    'Content-Type': 'application/json',
+  },
 });
 
 // attach access token

@@ -176,31 +176,6 @@ const VerifyEmail = () => {
   /* --------------------------------
      Resend code
   -------------------------------- */
-  // const handleResend = async () => {
-  //   if (cooldown > 0 || status === 'sending') return;
-
-  //   try {
-  //     setStatus('sending');
-  //     setMessage('');
-
-  //     const res = await api.post('/verify/send-email');
-
-  //     updateUser({
-  //       ...user,
-  //       resendCooldowns: {
-  //         ...user.resendCooldowns,
-  //         verify_email: res.data.nextAllowedAt,
-  //       },
-  //     });
-
-  //     setCooldown(getRemainingSeconds(res.data.nextAllowedAt));
-  //     setStatus('idle');
-  //   } catch (err) {
-  //     setStatus('error');
-  //     setMessage(err.response?.data?.message || 'Please wait before retrying');
-  //   }
-  // };
-
   const handleResend = async () => {
     if (cooldown > 0 || status === 'sending') return;
 
