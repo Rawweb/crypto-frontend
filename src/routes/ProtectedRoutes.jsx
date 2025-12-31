@@ -9,6 +9,10 @@ const ProtectedRoute = ({ children, roles }) => {
   if (!user) {
     return <Navigate to="/login" replace />;
   }
+  
+  if (!user.isVerified) {
+    return <Navigate to="/verify-email" replace />;
+  }
 
   if (roles && !roles.includes(user.role)) {
     return <Navigate to="/dashboard" replace />;

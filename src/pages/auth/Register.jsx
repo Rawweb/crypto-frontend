@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { FiEye, FiEyeOff } from 'react-icons/fi';
 import api from '@api/axios';
@@ -6,7 +6,7 @@ import { useAuth } from '@context/AuthContext';
 
 const Register = () => {
   const navigate = useNavigate();
-  const { login } = useAuth();
+  const { login, user } = useAuth();
 
   const [form, setForm] = useState({
     username: '',
@@ -17,8 +17,13 @@ const Register = () => {
 
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
-
   const [showPassword, setShowPassword] = useState(false);
+
+  useEffect(() => {
+    if (user) {
+      navigate('/dashboard', { replace: true });
+    }
+  }, [user]);
 
   const handleChange = e => {
     setForm(prev => ({
@@ -30,6 +35,7 @@ const Register = () => {
   const handleSubmit = async e => {
     e.preventDefault();
     setError('');
+    setLoading(true);
 
     if (!form.username || !form.email || !form.password) {
       setError('All required fields must be filled');
@@ -37,17 +43,15 @@ const Register = () => {
     }
 
     try {
-      setLoading(true);
-
       const res = await api.post('/auth/register', form);
 
       // persist token
-      // localStorage.setItem('token', res.data.token);
+      localStorage.setItem('token', res.data.token);
 
-      // update auth context
+      // IMPORTANT: do NOT rely on AuthContext yet
       login(res.data.user);
 
-      navigate('/verify-email');
+      navigate('/verify-email', { replace: true });
     } catch (err) {
       setError(err.response?.data?.message || 'Registration failed');
     } finally {

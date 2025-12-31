@@ -26,10 +26,14 @@ api.interceptors.response.use(
   async error => {
     const originalRequest = error.config;
 
+    const isAuthRoute =
+      originalRequest.url.includes('/auth') ||
+      originalRequest.url.includes('/verify');
+
     if (
+      isAuthRoute || // ⛔ DO NOT REFRESH ON AUTH
       error.response?.status !== 401 ||
-      originalRequest._retry ||
-      originalRequest.url.includes('/auth/refresh')
+      originalRequest._retry
     ) {
       return Promise.reject(error);
     }
@@ -38,19 +42,11 @@ api.interceptors.response.use(
 
     try {
       const res = await api.post('/auth/refresh');
-
-      // ✅ store new access token
       localStorage.setItem('token', res.data.token);
-
-      // ✅ update header for retry
       originalRequest.headers.Authorization = `Bearer ${res.data.token}`;
-
       return api(originalRequest);
     } catch (err) {
-      // refresh failed → session expired
       localStorage.removeItem('token');
-      localStorage.removeItem('user');
-
       window.location.href = '/login';
       return Promise.reject(err);
     }

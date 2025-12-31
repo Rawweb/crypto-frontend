@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { FiEye, FiEyeOff } from 'react-icons/fi';
 import api from '@api/axios';
@@ -6,7 +6,7 @@ import { useAuth } from '@context/AuthContext';
 
 const Login = () => {
   const navigate = useNavigate();
-  const { login } = useAuth();
+  const { login, user } = useAuth();
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -14,6 +14,12 @@ const Login = () => {
   const [loading, setLoading] = useState(false);
 
   const [showPassword, setShowPassword] = useState(false);
+
+  useEffect(() => {
+    if (user) {
+      navigate('/dashboard', { replace: true });
+    }
+  }, [user]);
 
   const handleLogin = async e => {
     e.preventDefault();
@@ -33,11 +39,11 @@ const Login = () => {
       login(res.data.user);
 
       if (!res.data.user.isVerified) {
-        navigate('/verify-email');
+        navigate('/verify-email', { replace: true });
       } else if (res.data.user.role === 'admin') {
-        navigate('/admin');
+        navigate('/admin', { replace: true });
       } else {
-        navigate('/dashboard');
+        navigate('/dashboard', { replace: true });
       }
     } catch (err) {
       setError(err.response?.data?.message || 'Login failed');
