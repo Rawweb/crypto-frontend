@@ -38,15 +38,15 @@ export const AuthProvider = ({ children }) => {
   };
 
   const logout = async () => {
-  try {
-    await api.post('/auth/logout');
-  } catch (err) {
-    // even if backend fails, still clear client state
-  } finally {
-    setUser(null);
-  }
-};
-
+    try {
+      await api.post('/auth/logout');
+    } catch (err) {
+      // even if backend fails, still clear client state
+    } finally {
+      localStorage.removeItem('token');
+      setUser(null);
+    }
+  };
 
   const updateUser = updatedUser => {
     setUser(updatedUser);

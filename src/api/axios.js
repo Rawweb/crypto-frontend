@@ -30,7 +30,11 @@ api.interceptors.response.use(
       url.includes('/api/verify');
 
     // ⛔ never intercept auth / verify routes
-    if (isAuthRoute || error.response?.status !== 401 || originalRequest._retry) {
+    if (
+      isAuthRoute ||
+      error.response?.status !== 401 ||
+      originalRequest._retry
+    ) {
       return Promise.reject(error);
     }
 
