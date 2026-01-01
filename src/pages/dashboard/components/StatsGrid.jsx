@@ -79,11 +79,11 @@ const StatsGrid = () => {
   ];
 
   return (
-    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 w-full min-w-0 break-all">
       {stats.map(({ label, value, icon: Icon }) => (
         <div
           key={label}
-          className="bg-bg-surface border border-bg-elevated rounded-xl p-5 flex items-center gap-4"
+          className="w-full bg-bg-surface border border-bg-elevated rounded-xl p-5 flex items-center gap-4 min-w-0"
         >
           <div className="p-3 rounded-full bg-bg-elevated text-brand-primary">
             <Icon className="size-5" />

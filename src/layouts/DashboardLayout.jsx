@@ -38,13 +38,13 @@ const DashboardLayout = () => {
 
   return (
     <NotificationProvider>
-      <div className="min-h-screen bg-bg-main text-text-primary flex">
+      <div className="min-h-screen bg-bg-main text-text-primary flex ">
         <Sidebar />
 
         <div className="flex-1 flex flex-col">
           <DashboardHeader />
 
-          <main className="flex-1 overflow-y-auto p-6 pb-24 md:pb-6">
+          <main className="flex-1 overflow-y-auto px-4 py-6 md:p-6 pb-24 md:pb-6 overflow-x-hidden">
             <Outlet />
           </main>
 

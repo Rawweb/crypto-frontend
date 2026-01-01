@@ -124,7 +124,7 @@ const AccountDetailsCard = ({ user, onUserUpdate }) => {
   };
 
   return (
-    <div className="bg-bg-surface border border-bg-elevated rounded-xl p-6 space-y-6">
+    <div className="w-full max-w-full bg-bg-surface border border-bg-elevated rounded-xl p-6 space-y-6">
       {/* HEADER */}
       <div className="flex items-center justify-between">
         <h2 className="font-medium flex items-center gap-2">
@@ -162,7 +162,7 @@ const AccountDetailsCard = ({ user, onUserUpdate }) => {
         )}
       </div>
 
-      {error && <p className="text-sm text-red-500">{error}</p>}
+      {error && <p className="text-sm text-status-danger">{error}</p>}
 
       {/* AVATAR */}
       <div className="flex items-center gap-5">
@@ -200,7 +200,7 @@ const AccountDetailsCard = ({ user, onUserUpdate }) => {
         {/* Email (read-only) */}
         <div className="space-y-1">
           <p className="text-text-muted text-sm">Email</p>
-          <p className="font-medium text-sm flex items-center gap-2">
+          <p className="font-medium text-sm flex items-center gap-2 wrap-break-word">
             <FiMail className="text-text-muted" />
             {user.email}
           </p>

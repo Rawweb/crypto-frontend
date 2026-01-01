@@ -5,18 +5,19 @@ const WalletActions = () => {
 
 
   return (
-    <div className="flex gap-4">
+    <div className="flex gap-3 w-full">
+
       <Link
         to="/wallet/deposit"
 
-        className="flex-1 bg-brand-primary hover:bg-brand-hover text-black py-3 rounded-lg text-sm font-medium text-center "
+        className="flex-1 min-w-0 bg-brand-primary hover:bg-brand-hover text-black py-3 rounded-lg text-sm font-medium text-center "
       >
         Deposit
       </Link>
 
       <Link
         to="/wallet/withdraw"
-        className="flex-1 border border-bg-elevated  hover:bg-bg-surface py-3 rounded-lg text-sm text-center"
+        className="flex-1 min-w-0 border border-bg-elevated  hover:bg-bg-surface py-3 rounded-lg text-sm text-center"
       >
         Withdraw
       </Link>

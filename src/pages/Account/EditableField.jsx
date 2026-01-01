@@ -36,7 +36,7 @@ const EditableField = ({
           />
         )
       ) : (
-        <p className="w-full border border-bg-elevated rounded-lg px-3 py-2 text-sm text-text-primary">
+        <p className="w-full border border-bg-elevated rounded-lg px-3 py-2 text-sm text-text-primary wrap-break-word">
           {value || 'Not set'}
         </p>
       )}

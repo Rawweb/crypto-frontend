@@ -7,7 +7,7 @@ import SavedWallets from './SavedWallets';
 
 const Wallet = () => {
   return (
-    <div className="space-y-10">
+    <div className="space-y-10 w-full max-w-full">
       <WalletHeroBalance />
       <WalletBreakdown />
       <WalletActions />

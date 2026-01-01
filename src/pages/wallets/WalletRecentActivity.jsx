@@ -143,16 +143,16 @@ const WalletRecentActivity = ({ filter = 'all' }) => {
                       className="flex items-center justify-between p-3 rounded-lg hover:bg-bg-elevated"
                     >
                       {/* left */}
-                      <div className="flex items-center gap-4">
+                      <div className="flex items-center gap-2 md:gap-4">
                         <div
-                          className={`p-2 rounded-full bg-bg-main ${
+                          className={`p-1 md:p-2 rounded-full bg-bg-main ${
                             status?.bg ?? 'bg-bg-elevated'
                           } ${status?.text ?? 'text-text-muted'}`}
                         >
                           {isDeposit ? (
-                            <FiArrowDownLeft className="size-5" />
+                            <FiArrowDownLeft className="size-4 md:size-5" />
                           ) : (
-                            <FiArrowUpRight className="size-5" />
+                            <FiArrowUpRight className="size-4 md:size-5" />
                           )}
                         </div>
 
@@ -161,9 +161,9 @@ const WalletRecentActivity = ({ filter = 'all' }) => {
                             {item.type}
                           </p>
 
-                          <div className="flex items-center gap-2 mt-1">
+                          <div className="flex items-center gap-1 md:gap-2 md:mt-1">
                             <span
-                              className={`py-0.5 px-2 text-xs rounded-full
+                              className={`py-0.5 md:px-2 text-xs rounded-full
                                 ${status?.bg ?? 'bg-bg-elevated'}
                                 ${status?.text ?? 'text-text-muted'}
                               `}

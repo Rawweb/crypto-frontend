@@ -11,8 +11,7 @@ const WalletHeroBalance = () => {
         const res = await api.get('/wallet');
         const w = res.data;
 
-        const totalBalance =
-          w.balance + w.profitBalance + w.referralBalance;
+        const totalBalance = w.balance + w.profitBalance + w.referralBalance;
 
         setTotal(totalBalance);
       } catch (error) {
@@ -26,15 +25,13 @@ const WalletHeroBalance = () => {
   }, []);
 
   return (
-    <div className="bg-bg-surface border border-bg-elevated rounded-xl p-8">
+    <div className="w-full max-w-full bg-bg-surface border border-bg-elevated rounded-xl p-6 md:p-8">
       <p className="text-sm text-text-muted mb-2">Total Balance</p>
 
       {loading ? (
         <div className="h-10 w-40 bg-bg-elevated rounded" />
       ) : (
-        <h1 className="text-3xl font-bold">
-          ${total.toFixed(2)}
-        </h1>
+        <h1 className="text-3xl font-bold">${total.toFixed(2)}</h1>
       )}
     </div>
   );

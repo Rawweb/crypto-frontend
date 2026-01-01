@@ -120,7 +120,7 @@ const InvestmentOverview = () => {
   /* ------------------ render ------------------ */
 
   return (
-    <div className="space-y-10">
+    <div className="space-y-10 w-full max-w-full overflow-x-hidden">
       {/* HEADER */}
       <div className="flex items-start justify-between gap-4">
         <div>
@@ -153,7 +153,7 @@ const InvestmentOverview = () => {
             return (
               <div
                 key={idx}
-                className="bg-bg-surface border border-bg-elevated rounded-xl p-5 animate-pulse h-20"
+                className="w-full min-w-0 bg-bg-surface border border-bg-elevated rounded-xl p-5 animate-pulse h-20"
               />
             );
           }

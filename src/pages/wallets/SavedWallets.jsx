@@ -63,23 +63,19 @@ const SavedWallets = () => {
         {wallets.map(w => (
           <div
             key={w._id}
-            className="flex items-center gap-4 p-4 rounded-xl bg-bg-surface border border-bg-elevated"
+            className="w-full flex items-center gap-4 p-4 rounded-xl bg-bg-surface border border-bg-elevated min-w-0 overflow-hidden"
           >
             <div className="bg-brand-primary/15 text-brand-primary rounded-lg p-2">
               <FiCreditCard />
             </div>
 
             <div className="flex-1">
-              <p className="text-sm font-medium">
-                {shorten(w.address)}
-              </p>
+              <p className="ext-sm font-medium break-all">{shorten(w.address)}</p>
               <p className="text-xs text-text-muted">
                 {w.network.replace('_', ' ')}
               </p>
               {w.isDefault && (
-                <span className="text-xs text-brand-primary">
-                  Default
-                </span>
+                <span className="text-xs text-brand-primary">Default</span>
               )}
             </div>
 

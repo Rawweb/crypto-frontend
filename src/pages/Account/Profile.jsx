@@ -44,7 +44,7 @@ const Profile = () => {
 
   return (
     <>
-      <div className="max-w-5xl mx-auto space-y-8">
+      <div className="max-w-5xl mx-auto space-y-8 w-full px-4 md:px-0 overflow-x-hidden">
         {/* Back */}
         <button
           onClick={() => navigate(-1)}

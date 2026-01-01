@@ -32,7 +32,8 @@ const WalletOverview = () => {
   }
 
   return (
-    <div className="bg-bg-surface border border-bg-elevated rounded-xl p-6">
+    <div className="w-full max-w-full bg-bg-surface border border-bg-elevated rounded-xl p-6">
+
       {/* header */}
       <div className="flex items-center justify-between mb-5">
         <h2 className="font-semibold uppercase">Wallet Overview</h2>
@@ -75,13 +76,13 @@ const WalletOverview = () => {
       <div className="flex gap-3 mt-6">
         <Link
           to="/wallet"
-          className="flex-1 bg-brand-primary text-black py-2 rounded-lg text-sm font-medium text-center hover:bg-brand-hover transition-colors"
+          className="flex-1 min-w-0 bg-brand-primary text-black py-2 rounded-lg text-sm font-medium text-center hover:bg-brand-hover transition-colors"
         >
           Deposit
         </Link>
         <Link
           to="/wallet"
-          className="flex-1 border border-bg-elevated py-2 rounded-lg text-sm text-center hover:bg-bg-elevated transition-colors"
+          className="flex-1 min-w-0 border border-bg-elevated py-2 rounded-lg text-sm text-center hover:bg-bg-elevated transition-colors"
         >
           Withdraw
         </Link>

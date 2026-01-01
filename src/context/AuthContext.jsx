@@ -25,8 +25,8 @@ export const AuthProvider = ({ children }) => {
         setUser(res.data.user);
       } catch {
         // invalid or expired token
-        localStorage.removeItem('token');
-        setUser(null);
+        // ignore
+        // wait for interceptor to refresh
       } finally {
         setLoading(false);
       }
@@ -67,8 +67,7 @@ export const AuthProvider = ({ children }) => {
       const res = await api.get('/auth/me');
       setUser(res.data.user);
     } catch {
-      localStorage.removeItem('token');
-      setUser(null);
+      // ignore
     }
   };
 
