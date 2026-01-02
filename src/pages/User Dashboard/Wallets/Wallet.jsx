@@ -1,9 +1,10 @@
 import React from 'react';
-import WalletHeroBalance from '@pages/wallets/WalletHeroBalance';
-import WalletBreakdown from '@pages/wallets/WalletBreakdown';
-import WalletActions from '@pages/wallets/WalletActions';
-import WalletRecentActivity from './WalletRecentActivity';
+import WalletHeroBalance from './WalletHeroBalance';
+import WalletBreakdown from './WalletBreakdown';
+import WalletActions from './WalletActions';
 import SavedWallets from './SavedWallets';
+import WalletRecentActivity from './WalletRecentActivity';
+
 
 const Wallet = () => {
   return (
@@ -11,7 +12,7 @@ const Wallet = () => {
       <WalletHeroBalance />
       <WalletBreakdown />
       <WalletActions />
-      <SavedWallets />
+      <SavedWallets/>
       <WalletRecentActivity />
     </div>
   );

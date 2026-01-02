@@ -1,9 +1,9 @@
 import { useEffect, useState } from 'react';
 import { Outlet, useNavigate } from 'react-router-dom';
 
-import Sidebar from '@pages/dashboard/Sidebar';
-import DashboardHeader from '@pages/dashboard/DashboardHeader';
-import MobileBottomNav from '@pages/dashboard/MobileBottomNav';
+import Sidebar from '@pages/User Dashboard/Dashboard/Sidebar';
+import DashboardHeader from '@pages/User Dashboard/Dashboard/DashboardHeader';
+import MobileBottomNav from '@pages/User Dashboard/Dashboard/MobileBottomNav';
 import { NotificationProvider } from '@context/NotificationContext';
 import { useAuth } from '@context/AuthContext';
 

@@ -8,8 +8,8 @@ import {
   FiCheck,
   FiLock,
 } from 'react-icons/fi';
-import WalletRecentActivity from '@pages/wallets/WalletRecentActivity';
 import { useAuth } from '@context/AuthContext';
+import WalletRecentActivity from '../Wallets/WalletRecentActivity';
 
 const shorten = addr => `${addr.slice(0, 6)}…${addr.slice(-4)}`;
 

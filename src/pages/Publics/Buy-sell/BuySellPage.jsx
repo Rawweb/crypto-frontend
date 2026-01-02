@@ -2,7 +2,8 @@ import React from 'react';
 import BuySellHero from './BuySellHero';
 import BuySellActions from './BuySellActions';
 import BuySellTrust from './BuySellTrust';
-import HowItWorksSection from '@pages/home/HowItWorksSection';
+import HowItWorksSection from '../Home/HowItWorksSection';
+
 
 const BuySellPage = () => {
   return (

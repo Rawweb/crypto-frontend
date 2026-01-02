@@ -1,9 +1,9 @@
-import React from 'react';
-import StatsGrid from '@pages/dashboard/components/StatsGrid';
-import WalletOverview from '@pages/dashboard/components/WalletOverview';
-import InvestmentOverview from '@pages/dashboard/components/InvestmentOverview';
-import RecentActivity from '@pages/dashboard/components/RecentActivity';
 import SuspensionBanner from '@components/common/SuspensionBanner';
+import React from 'react';
+import StatsGrid from './components/StatsGrid';
+import WalletOverview from './components/WalletOverview';
+import InvestmentOverview from './components/InvestmentOverview';
+import RecentActivity from './components/RecentActivity';
 
 const Dashboard = () => {
   return (

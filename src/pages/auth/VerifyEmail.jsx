@@ -126,12 +126,19 @@ const VerifyEmail = () => {
      Guards
   -------------------------------- */
   useEffect(() => {
-    if (!loading && !user) {
+    if (loading) return;
+
+    if (!user) {
       navigate('/login', { replace: true });
+      return;
     }
 
-    if (!loading && user?.isVerified) {
-      navigate('/dashboard', { replace: true });
+    if (user.isVerified) {
+      if (user.role === 'admin') {
+        navigate('/admin', { replace: true });
+      } else {
+        navigate('/dashboard', { replace: true });
+      }
     }
   }, [user, loading, navigate]);
 
@@ -165,7 +172,11 @@ const VerifyEmail = () => {
       setStatus('success');
 
       setTimeout(() => {
-        navigate('/dashboard', { replace: true });
+        if (user.role === 'admin') {
+          navigate('/admin', { replace: true });
+        } else {
+          navigate('/dashboard', { replace: true });
+        }
       }, 800);
     } catch (err) {
       setStatus('error');

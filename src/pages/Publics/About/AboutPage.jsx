@@ -6,7 +6,8 @@ import SecurityPhilosophy from './SecurityPhilosophy';
 import OurValuesSection from './OurValuesSection';
 import WhoItsForSection from './WhoItsForSection';
 import AboutMetrics from './AboutMetrics';
-import CTASection from '@pages/home/CTASection';
+import CTASection from '../Home/CTASection';
+
 
 const AboutPage = () => {
   return (

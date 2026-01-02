@@ -24,10 +24,11 @@ api.interceptors.response.use(
     const url = originalRequest?.url || '';
 
     const isAuthRoute =
-      url.startsWith('/auth') ||
-      url.startsWith('/verify') ||
-      url.includes('/api/auth') ||
-      url.includes('/api/verify');
+      url.includes('/auth/login') ||
+      url.includes('/auth/register') ||
+      url.includes('/auth/verify') ||
+      url.includes('/auth/refresh') ||
+      url.includes('/auth/logout');
 
     // ⛔ never intercept auth / verify routes
     if (

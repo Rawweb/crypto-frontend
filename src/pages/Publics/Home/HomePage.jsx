@@ -1,12 +1,15 @@
 import CryptoMarquee from '@components/ui/CryptoMarquee';
 import Hero from '@components/ui/Hero';
-import EarningsSection from '@pages/home/EarningSection';
+import React from 'react';
 import WhyOurPlatformSection from './WhyOurPlatformSection';
 import HowItWorksSection from './HowItWorksSection';
+import EarningsSection from './EarningSection';
 import SecurityTrustSection from './SecurityTrustSection';
-import CTASection from './CTASection';
 import FAQSection from './FAQSection';
+import CTASection from './CTASection';
 import TestimonialsSection from './TestimonialSection';
+
+
 
 const HomePage = () => {
   return (

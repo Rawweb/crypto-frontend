@@ -6,11 +6,12 @@ import {
   FiArrowLeft,
 } from 'react-icons/fi';
 import { useNavigate } from 'react-router-dom';
-import AccountDetailsCard from '@pages/Account/AccountDetailsCard';
+
 import ProfileSkeleton from '@components/ui/ProfileSkeleton';
 import ConfirmModal from '@components/ui/ConfirmModal';
 import { useAuth } from '@context/AuthContext';
 import { useState } from 'react';
+import AccountDetailsCard from './AccountDetailsCard';
 
 const Profile = () => {
   const navigate = useNavigate();

@@ -2,8 +2,9 @@ import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import api from '@api/axios';
 import { FiCheckCircle, FiAlertCircle, FiUpload, FiLock } from 'react-icons/fi';
-import WalletRecentActivity from '@pages/wallets/WalletRecentActivity';
+
 import { useAuth } from '@context/AuthContext';
+import WalletRecentActivity from '../Wallets/WalletRecentActivity';
 
 const DepositPage = () => {
   const navigate = useNavigate();
