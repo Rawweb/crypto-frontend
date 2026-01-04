@@ -58,6 +58,7 @@ const InvestmentPlans = () => {
         ]);
 
         const orderedPlans = plansRes.data
+          .filter(p => p.isActive)
           .filter(p => PLAN_ORDER.includes(p.name.toLowerCase()))
           .sort(
             (a, b) =>
@@ -102,6 +103,17 @@ const InvestmentPlans = () => {
         planId: selectedPlan._id,
         amount: Number(amount),
       });
+
+      const plansRes = await api.get('/investments/plans');
+      const orderedPlans = plansRes.data
+        .filter(p => PLAN_ORDER.includes(p.name.toLowerCase()))
+        .sort(
+          (a, b) =>
+            PLAN_ORDER.indexOf(a.name.toLowerCase()) -
+            PLAN_ORDER.indexOf(b.name.toLowerCase())
+        );
+
+      setPlans(orderedPlans);
 
       setStatus('success');
       setMessage('Investment created successfully');
@@ -157,7 +169,7 @@ const InvestmentPlans = () => {
       </button>
 
       {/* suspended banner */}
-      <SuspensionBanner/>
+      <SuspensionBanner />
 
       {/* ================= HEADER ================= */}
       <div className="text-center max-w-2xl mx-auto">
@@ -181,7 +193,7 @@ const InvestmentPlans = () => {
           const Icon = PLAN_ICONS[key];
           const isFeatured = meta.featured;
           const isSelected = selectedPlan?._id === plan._id;
-          
+          const isDisabled = !plan.isActive;
 
           return (
             <div
@@ -261,20 +273,19 @@ const InvestmentPlans = () => {
 
               {/* CTA */}
               <button
-                disabled={isSuspended}
+                disabled={isSuspended || isDisabled}
                 onClick={e => {
                   e.stopPropagation();
+                  if (isDisabled) return;
                   setShowModal(true);
                 }}
-                className={`w-full py-3 rounded-xl font-semibold transition disabled:opacity-50 disabled:cursor-not-allowed
-                  ${
-                    isFeatured
-                      ? 'bg-black text-white'
-                      : 'border border-bg-elevated hover:bg-brand-primary hover:text-black'
-                  }
-                `}
+                className={`w-full py-3 rounded-xl font-semibold transition disabled:opacity-50 disabled:cursor-not-allowed ${
+                  isFeatured
+                    ? 'bg-black text-white'
+                    : 'border border-bg-elevated hover:bg-brand-primary hover:text-black'
+                }`}
               >
-                Get Started
+                {isDisabled ? 'Unavailable' : 'Get Started'}
               </button>
             </div>
           );

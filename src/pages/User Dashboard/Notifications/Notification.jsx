@@ -95,14 +95,25 @@ const Notifications = () => {
   }, [notifications]);
 
   if (loading) {
-    return <p className="text-text-muted">Loading notifications…</p>;
+    return <div className="h-48 bg-bg-elevated rounded-xl animate-pulse" />;
   }
 
   if (!notifications.length) {
     return (
-      <div className="flex flex-col items-center justify-center py-20 text-center">
-        <FiBell className="text-4xl text-text-muted mb-4" />
-        <p className="text-text-muted">You’re all caught up</p>
+      <div className="space-y-6">
+        <h1 className="text-lg font-semibold">Admin Notifications</h1>
+
+        <div className="rounded-xl border border-status-info/20 bg-status-info/10 p-6 text-center">
+          <FiBell className="mx-auto mb-3 text-2xl text-status-info" />
+
+          <p className="text-sm font-medium text-status-info">
+            No notifications yet
+          </p>
+
+          <p className="text-xs text-text-muted mt-1">
+            Admin alerts such as deposits and withdrawals will appear here.
+          </p>
+        </div>
       </div>
     );
   }

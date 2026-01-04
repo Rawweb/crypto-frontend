@@ -6,6 +6,8 @@ import AdminSkeleton from '../Dashboard/Components/AdminSkeleton';
 import StatusBadge from '../Dashboard/Components/StatusBadge';
 import ActionButtons from '../Dashboard/Components/ActionButtons';
 import ConfirmModal from '@components/ui/ConfirmModal';
+import { useLocation } from 'react-router-dom';
+import { useAdminNotifications } from '@context/AdminNotificationContext';
 
 const AdminDeposits = () => {
   const [deposits, setDeposits] = useState([]);
@@ -14,6 +16,12 @@ const AdminDeposits = () => {
   const [actionLoading, setActionLoading] = useState(false);
   const [selected, setSelected] = useState(null);
   const [actionType, setActionType] = useState(null);
+
+  const location = useLocation();
+  const params = new URLSearchParams(location.search);
+  const highlightId = params.get('highlight');
+
+  const { refreshUnread } = useAdminNotifications();
 
   useEffect(() => {
     let mounted = true;
@@ -49,9 +57,8 @@ const AdminDeposits = () => {
         { depositId: selected._id }
       );
 
-      setDeposits(prev =>
-        prev.filter(d => d._id !== selected._id)
-      );
+      setDeposits(prev => prev.filter(d => d._id !== selected._id));
+      refreshUnread();
     } catch {
       alert('Action failed');
     } finally {
@@ -69,6 +76,23 @@ const AdminDeposits = () => {
     return (
       <div className="bg-status-danger/10 border border-status-danger/20 rounded-xl p-4 text-status-danger">
         {error}
+      </div>
+    );
+  }
+
+  if (!deposits.length) {
+    return (
+      <div className="space-y-6">
+        <h1 className="text-lg font-semibold">Pending Deposits</h1>
+
+        <div className="rounded-xl border border-status-info/20 bg-status-info/10 p-6 text-center">
+          <p className="text-sm font-medium text-status-info">
+            No pending deposits
+          </p>
+          <p className="text-xs text-text-muted mt-1">
+            New deposit requests will appear here when users submit them.
+          </p>
+        </div>
       </div>
     );
   }
@@ -116,7 +140,7 @@ const AdminDeposits = () => {
     <div className="space-y-6">
       <h1 className="text-lg font-semibold">Pending Deposits</h1>
 
-      <AdminTable columns={columns} data={deposits} />
+      <AdminTable columns={columns} data={deposits} highlightId={highlightId} />
 
       <ConfirmModal
         open={!!selected}

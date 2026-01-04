@@ -1,24 +1,18 @@
 import { useEffect, useState } from 'react';
 import api from '@api/axios';
 import AdminSkeleton from '../Dashboard/Components/AdminSkeleton';
-import StatusBadge from '../Dashboard/Components/StatusBadge';
+import { FiCopy, FiCheck } from 'react-icons/fi';
 import ActionButtons from '../Dashboard/Components/ActionButtons';
 import AdminTable from '../Dashboard/Components/AdminTable';
 import ConfirmModal from '@components/ui/ConfirmModal';
 import NetworkBadge from '../Dashboard/Components/NetworkBadge';
 import { normalizeNetworkName } from '@components/utils/normalizeNetworkName';
+import { useLocation } from 'react-router-dom';
+import { useAdminNotifications } from '@context/AdminNotificationContext';
 
 const trimWallet = (address, start = 6, end = 4) => {
   if (!address) return '—';
   return `${address.slice(0, start)}...${address.slice(-end)}`;
-};
-
-const copyToClipboard = async text => {
-  try {
-    await navigator.clipboard.writeText(text);
-  } catch {
-    alert('Failed to copy');
-  }
 };
 
 const AdminWithdrawals = () => {
@@ -29,8 +23,30 @@ const AdminWithdrawals = () => {
   const [selected, setSelected] = useState(null);
   const [actionType, setActionType] = useState(null);
 
+  const [copiedWallet, setCopiedWallet] = useState(null);
+
   const [search, setSearch] = useState('');
   const [networkFilter, setNetworkFilter] = useState('all');
+
+  const location = useLocation();
+  const params = new URLSearchParams(location.search);
+  const highlightId = params.get('highlight');
+
+  const { resfreshUnread } = useAdminNotifications();
+
+  const copyToClipboard = async address => {
+    try {
+      await navigator.clipboard.writeText(address);
+      setCopiedWallet(address);
+
+      // reset after 1.5s
+      setTimeout(() => {
+        setCopiedWallet(null);
+      }, 1500);
+    } catch {
+      alert('Failed to copy');
+    }
+  };
 
   useEffect(() => {
     let mounted = true;
@@ -64,6 +80,7 @@ const AdminWithdrawals = () => {
       );
 
       setWithdrawals(prev => prev.filter(w => w._id !== selected._id));
+      resfreshUnread();
     } catch {
       alert('Action failed');
     } finally {
@@ -79,6 +96,23 @@ const AdminWithdrawals = () => {
     return (
       <div className="bg-status-danger/10 border border-status-danger/20 rounded-xl p-4 text-status-danger">
         {error}
+      </div>
+    );
+  }
+
+  if (!withdrawals.length) {
+    return (
+      <div className="space-y-6">
+        <h1 className="text-lg font-semibold">Pending Withdrawals</h1>
+
+        <div className="rounded-xl border border-status-info/20 bg-status-info/10 p-6 text-center">
+          <p className="text-sm font-medium text-status-info">
+            No pending withdrawals
+          </p>
+          <p className="text-xs text-text-muted mt-1">
+            New withdrawal requests will appear here when users submit them.
+          </p>
+        </div>
       </div>
     );
   }
@@ -106,18 +140,32 @@ const AdminWithdrawals = () => {
       label: 'Amount',
       render: r => `$${r.amount}`,
     },
+
     {
       key: 'wallet',
       label: 'Wallet',
-      render: r => (
-        <button
-          onClick={() => copyToClipboard(r.walletAddress)}
-          className="text-left hover:underline font-mono text-sm"
-          title="Click to copy wallet address"
-        >
-          {trimWallet(r.walletAddress)}
-        </button>
-      ),
+      render: r => {
+        const isCopied = copiedWallet === r.walletAddress;
+
+        return (
+          <div className="flex items-center gap-2 font-mono text-sm">
+            <span>{trimWallet(r.walletAddress)}</span>
+
+            <button
+              onClick={() => copyToClipboard(r.walletAddress)}
+              className={`p-1 rounded transition
+            ${
+              isCopied
+                ? 'text-status-success'
+                : 'text-text-muted hover:text-text-primary hover:bg-bg-elevated'
+            }`}
+              title={isCopied ? 'Copied' : 'Copy wallet address'}
+            >
+              {isCopied ? <FiCheck size={14} /> : <FiCopy size={14} />}
+            </button>
+          </div>
+        );
+      },
     },
 
     {
@@ -169,7 +217,11 @@ const AdminWithdrawals = () => {
         </select>
       </div>
 
-      <AdminTable columns={columns} data={filteredWithdrawals} />
+      <AdminTable
+        columns={columns}
+        data={filteredWithdrawals}
+        highlightId={highlightId}
+      />
 
       <ConfirmModal
         open={!!selected}

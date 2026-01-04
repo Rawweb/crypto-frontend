@@ -9,6 +9,7 @@ import {
   FiFileText,
   FiBell,
   FiLogOut,
+  FiLayers,
 } from 'react-icons/fi';
 import ConfirmModal from '@components/ui/ConfirmModal';
 import { useAuth } from '@context/AuthContext';
@@ -21,6 +22,7 @@ const navItems = [
   { name: 'Deposits', path: '/admin/deposits', icon: FiArrowDownLeft },
   { name: 'Withdrawals', path: '/admin/withdrawals', icon: FiArrowUpRight },
   { name: 'Investments', path: '/admin/investments', icon: FiTrendingUp },
+  { name: 'Investment Plans', path: '/admin/investment-plans', icon: FiLayers},
   { name: 'Pages', path: '/admin/pages', icon: FiFileText },
   { name: 'Notifications', path: '/admin/notifications', icon: FiBell },
 ];

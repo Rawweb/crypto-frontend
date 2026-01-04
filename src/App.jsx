@@ -47,6 +47,7 @@ import AdminWithdrawals from '@pages/Admin Dashboard/Withdrawals/AdminWithdrawal
 import AdminPages from '@pages/Admin Dashboard/CMS - pages/AdminPages';
 import AdminNotifications from '@pages/Admin Dashboard/Notifications/AdminNotifications';
 import AdminInvestments from '@pages/Admin Dashboard/Investments/AdminInvestments';
+import AdminInvestmentPlans from '@pages/Admin Dashboard/Investments/AdminInvestmentPlans';
 
 
 const App = () => {
@@ -123,6 +124,7 @@ const App = () => {
           <Route path="admin/pages" element={<AdminPages />} />
           <Route path="admin/notifications" element={<AdminNotifications/>} />
           <Route path="admin/investments" element={<AdminInvestments/>} />
+          <Route path="admin/investment-plans" element={<AdminInvestmentPlans/>} />
         </Route>
       </Routes>
     </Router>
