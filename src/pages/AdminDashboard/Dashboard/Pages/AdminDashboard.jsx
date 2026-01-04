@@ -1,10 +1,11 @@
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import api from '@api/axios';
-import StatCard from '../components/StatCard';
-import AdminTable from '../components/AdminTable';
-import StatusBadge from '../components/StatusBadge';
-import AdminSkeleton from '../components/AdminSkeleton';
+
+import AdminTable from '@pages/AdminDashboard/Dashboard/components/AdminTable';
+import StatusBadge from '@pages/AdminDashboard/Dashboard/components/StatusBadge';
+import AdminSkeleton from '@pages/AdminDashboard/Dashboard/components/AdminSkeleton';
+import StatCard from '@pages/AdminDashboard/Dashboard/components/StatCard';
 
 const AdminDashboard = () => {
   const [stats, setStats] = useState(null);

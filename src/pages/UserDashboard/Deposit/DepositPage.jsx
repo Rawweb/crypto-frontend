@@ -4,7 +4,7 @@ import api from '@api/axios';
 import { FiCheckCircle, FiAlertCircle, FiUpload, FiLock } from 'react-icons/fi';
 
 import { useAuth } from '@context/AuthContext';
-import WalletRecentActivity from '../Wallets/WalletRecentActivity';
+import WalletRecentActivity from '@pages/UserDashboard/Wallets/WalletRecentActivity';
 
 const DepositPage = () => {
   const navigate = useNavigate();

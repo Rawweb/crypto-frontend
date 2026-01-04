@@ -1,9 +1,9 @@
 import SuspensionBanner from '@components/common/SuspensionBanner';
 import React from 'react';
-import StatsGrid from './components/StatsGrid';
-import WalletOverview from './components/WalletOverview';
-import InvestmentOverview from './components/InvestmentOverview';
-import RecentActivity from './components/RecentActivity';
+import StatsGrid from '@pages/UserDashboard/Dashboard/components/StatsGrid';
+import WalletOverview from '@pages/UserDashboard/Dashboard/components/WalletOverview';
+import InvestmentOverview from '@pages/UserDashboard/Dashboard/components/InvestmentOverview';
+import RecentActivity from '@pages/UserDashboard/Dashboard/components/RecentActivity';
 
 const Dashboard = () => {
   return (

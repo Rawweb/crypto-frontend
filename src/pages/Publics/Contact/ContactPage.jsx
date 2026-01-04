@@ -1,7 +1,7 @@
 import React from 'react';
-import ContactHero from './ContactHero';
-import SupportOptions from './SupportOptions';
-import ContactForm from './ContactForm';
+import ContactHero from '@pages/Publics/Contact/ContactHero';
+import SupportOptions from '@pages/Publics/Contact/SupportOptions';
+import ContactForm from '@pages/Publics/Contact/ContactForm';
 
 const ContactPage = () => {
   return (

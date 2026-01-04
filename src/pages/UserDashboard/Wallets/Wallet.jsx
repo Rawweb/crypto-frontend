@@ -1,9 +1,9 @@
 import React from 'react';
-import WalletHeroBalance from './WalletHeroBalance';
-import WalletBreakdown from './WalletBreakdown';
-import WalletActions from './WalletActions';
-import SavedWallets from './SavedWallets';
-import WalletRecentActivity from './WalletRecentActivity';
+import WalletHeroBalance from '@pages/UserDashboard/Wallets/WalletHeroBalance';
+import WalletBreakdown from '@pages/UserDashboard/Wallets/WalletBreakdown';
+import WalletActions from '@pages/UserDashboard/Wallets/WalletActions';
+import SavedWallets from '@pages/UserDashboard/Wallets/SavedWallets';
+import WalletRecentActivity from '@pages/UserDashboard/Wallets/WalletRecentActivity';
 
 
 const Wallet = () => {

@@ -1,10 +1,10 @@
 import { useEffect, useState } from 'react';
 import api from '@api/axios';
 
-import AdminTable from '../Dashboard/Components/AdminTable';
-import AdminSkeleton from '../Dashboard/Components/AdminSkeleton';
-import StatusBadge from '../Dashboard/Components/StatusBadge';
-import ActionButtons from '../Dashboard/Components/ActionButtons';
+import AdminTable from '@pages/AdminDashboard/Dashboard/Components/AdminTable';
+import AdminSkeleton from '@pages/AdminDashboard/Dashboard/Components/AdminSkeleton';
+import StatusBadge from '@pages/AdminDashboard/Dashboard/Components/StatusBadge';
+import ActionButtons from '@pages/AdminDashboard/Dashboard/Components/ActionButtons';
 import ConfirmModal from '@components/ui/ConfirmModal';
 import { useLocation } from 'react-router-dom';
 import { useAdminNotifications } from '@context/AdminNotificationContext';

@@ -9,7 +9,7 @@ import {
   FiLock,
 } from 'react-icons/fi';
 import { useAuth } from '@context/AuthContext';
-import WalletRecentActivity from '../Wallets/WalletRecentActivity';
+import WalletRecentActivity from '@pages/UserDashboard/Wallets/WalletRecentActivity';
 
 const shorten = addr => `${addr.slice(0, 6)}…${addr.slice(-4)}`;
 

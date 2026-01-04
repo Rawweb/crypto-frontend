@@ -1,5 +1,5 @@
-import LegalLayout from './LegalLayout';
-import LegalSidebar from './LegalSidebar';
+import LegalLayout from '@pages/Publics/legal/LegalLayout';
+import LegalSidebar from '@pages/Publics/legal/LegalSidebar';
 
 const sections = [
   { id: 'acceptance', label: 'Acceptance of terms' },

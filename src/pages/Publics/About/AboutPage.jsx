@@ -1,12 +1,12 @@
 import React from 'react';
-import AboutHero from './AboutHero';
-import OurStorySection from './OurStorySection';
-import WhatMakesUsDifferent from './WhatMakesUsDifferent';
-import SecurityPhilosophy from './SecurityPhilosophy';
-import OurValuesSection from './OurValuesSection';
-import WhoItsForSection from './WhoItsForSection';
-import AboutMetrics from './AboutMetrics';
-import CTASection from '../Home/CTASection';
+import AboutHero from '@pages/Publics/About/AboutHero';
+import OurStorySection from '@pages/Publics/About/OurStorySection';
+import WhatMakesUsDifferent from '@pages/Publics/About/WhatMakesUsDifferent';
+import SecurityPhilosophy from '@pages/Publics/About/SecurityPhilosophy';
+import OurValuesSection from '@pages/Publics/About/OurValuesSection';
+import WhoItsForSection from '@pages/Publics/About/WhoItsForSection';
+import AboutMetrics from '@pages/Publics/About/AboutMetrics';
+import CTASection from '@pages/Publics/Home/CTASection';
 
 
 const AboutPage = () => {

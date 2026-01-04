@@ -2,12 +2,12 @@ import { useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import api from '@api/axios';
 
-import AdminTable from '../Dashboard/Components/AdminTable';
-import AdminSkeleton from '../Dashboard/Components/AdminSkeleton';
+import AdminTable from '@pages/AdminDashboard/Dashboard/Components/AdminTable';
+import AdminSkeleton from '@pages/AdminDashboard/Dashboard/Components/AdminSkeleton';
 import ConfirmModal from '@components/ui/ConfirmModal';
-import Pagination from '../Dashboard/Components/Pagination';
-import BulkActionBar from '../Dashboard/Components/BulkActionBar';
-import UserDrawer from '../Dashboard/Components/UserDrawer';
+import Pagination from '@pages/AdminDashboard/Dashboard/Components/Pagination';
+import BulkActionBar from '@pages/AdminDashboard/Dashboard/Components/BulkActionBar';
+import UserDrawer from '@pages/AdminDashboard/Dashboard/Components/UserDrawer';
 
 /* ---------------- status badge ---------------- */
 
