@@ -20,34 +20,34 @@ import HomePage from '@pages/Publics/Home/HomePage';
 import PrivacyPolicy from '@pages/Publics/Legal/PrivacyPolicy';
 import TermsOfService from '@pages/Publics/Legal/TermsOfService';
 
-import Dashboard from '@pages/User Dashboard/Dashboard/Dashboard';
+import Dashboard from '@pages/UserDashboard/Dashboard/Dashboard';
 
-import InvestmentOverview from '@pages/User Dashboard/Investments/InvestmentOverview';
-import ActiveInvestments from '@pages/User Dashboard/Investments/ActiveInvestments';
-import CompletedInvestments from '@pages/User Dashboard/Investments/CompletedInvestments';
-import InvestmentPlans from '@pages/User Dashboard/Investments/InvestmentPlans';
-import InvestmentDetails from '@pages/User Dashboard/Investments/InvestmentsDetails';
-import ProfitHistory from '@pages/User Dashboard/Investments/ProfitHistory';
+import InvestmentOverview from '@pages/UserDashboard/Investments/InvestmentOverview';
+import ActiveInvestments from '@pages/UserDashboard/Investments/ActiveInvestments';
+import CompletedInvestments from '@pages/UserDashboard/Investments/CompletedInvestments';
+import InvestmentPlans from '@pages/UserDashboard/Investments/InvestmentPlans';
+import InvestmentDetails from '@pages/UserDashboard/Investments/InvestmentsDetails';
+import ProfitHistory from '@pages/UserDashboard/Investments/ProfitHistory';
 
-import Wallet from '@pages/User Dashboard/Wallets/Wallet';
-import WithdrawPage from '@pages/User Dashboard/Withdrawal/WithdrawPage';
-import DepositPage from '@pages/User Dashboard/Deposit/DepositPage';
+import Wallet from '@pages/UserDashboard/Wallets/Wallet';
+import WithdrawPage from '@pages/UserDashboard/Withdrawal/WithdrawPage';
+import DepositPage from '@pages/UserDashboard/Deposit/DepositPage';
 
-import Account from '@pages/User Dashboard/Account/Account';
-import AccountSettings from '@pages/User Dashboard/Account/AccountSettings';
-import Profile from '@pages/User Dashboard/Account/Profile';
+import Account from '@pages/UserDashboard/Account/Account';
+import AccountSettings from '@pages/UserDashboard/Account/AccountSettings';
+import Profile from '@pages/UserDashboard/Account/Profile';
 
-import Notification from '@pages/User Dashboard/Notifications/Notification';
+import Notification from '@pages/UserDashboard/Notifications/Notification';
 
-import AdminDashboard from '@pages/Admin Dashboard/Dashboard/Pages/AdminDashboard';
-import AdminUsers from '@pages/Admin Dashboard/Users/AdminUsers';
-import AdminTransactions from '@pages/Admin Dashboard/Transactions/AdminTransactions';
-import AdminDeposits from '@pages/Admin Dashboard/Deposits/AdminDeposits';
-import AdminWithdrawals from '@pages/Admin Dashboard/Withdrawals/AdminWithdrawals';
-import AdminPages from '@pages/Admin Dashboard/CMS - pages/AdminPages';
-import AdminNotifications from '@pages/Admin Dashboard/Notifications/AdminNotifications';
-import AdminInvestments from '@pages/Admin Dashboard/Investments/AdminInvestments';
-import AdminInvestmentPlans from '@pages/Admin Dashboard/Investments/AdminInvestmentPlans';
+import AdminDashboard from '@pages/AdminDashboard/Dashboard/Pages/AdminDashboard';
+import AdminUsers from '@pages/AdminDashboard/Users/AdminUsers';
+import AdminTransactions from '@pages/AdminDashboard/Transactions/AdminTransactions';
+import AdminDeposits from '@pages/AdminDashboard/Deposits/AdminDeposits';
+import AdminWithdrawals from '@pages/AdminDashboard/Withdrawals/AdminWithdrawals';
+import AdminPages from '@pages/AdminDashboard/CMS - pages/AdminPages';
+import AdminNotifications from '@pages/AdminDashboard/Notifications/AdminNotifications';
+import AdminInvestments from '@pages/AdminDashboard/Investments/AdminInvestments';
+import AdminInvestmentPlans from '@pages/AdminDashboard/Investments/AdminInvestmentPlans';
 
 
 const App = () => {
