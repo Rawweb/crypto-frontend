@@ -8,9 +8,9 @@ import AuthLayout from '@layouts/AuthLayout';
 import DashboardLayout from '@layouts/DashboardLayout';
 import UserLayout from '@layouts/UserLayout';
 
-import Login from '@pages/Auth/Login';
-import Register from '@pages/Auth/Register';
-import VerifyEmail from '@pages/Auth/VerifyEmail';
+import Login from '@pages/auth/Login';
+import Register from '@pages/auth/Register';
+import VerifyEmail from '@pages/auth/VerifyEmail';
 
 import AboutPage from '@pages/Publics/About/AboutPage';
 import BuySellPage from '@pages/Publics/Buy-sell/BuySellPage';
