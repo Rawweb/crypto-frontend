@@ -7,15 +7,21 @@ const FAQSection = () => {
   const [openIndex, setOpenIndex] = useState(null);
 
   useEffect(() => {
-    api.get('/faqs').then(res => {
-      setFaqs(res.data);
-    });
+    const loadFaqs = async () => {
+      try {
+        const res = await api.get('/faqs');
+        setFaqs(Array.isArray(res.data) ? res.data : []);
+      } catch {
+        setFaqs([]);
+      }
+    };
+
+    loadFaqs();
   }, []);
 
   return (
     <section className="container mt-32">
       <Reveal>
-        {/* heading */}
         <div className="text-center mb-16">
           <h1 className="text-3xl md:text-4xl font-semibold">
             Frequently Asked Questions
@@ -25,33 +31,38 @@ const FAQSection = () => {
           </p>
         </div>
 
-        {/* list */}
         <div className="max-w-3xl mx-auto divide-y divide-bg-elevated">
-          {faqs.map((faq, index) => {
-            const isOpen = openIndex === index;
+          {faqs.length === 0 ? (
+            <p className="text-center text-text-secondary">
+              No FAQs available.
+            </p>
+          ) : (
+            faqs.map((faq, index) => {
+              const isOpen = openIndex === index;
 
-            return (
-              <div key={faq._id} className="py-6">
-                <button
-                  onClick={() => setOpenIndex(isOpen ? null : index)}
-                  className="w-full flex justify-between text-left"
-                >
-                  <span className="font-medium">{faq.question}</span>
-                  <span
-                    className={`text-brand-primary transition ${
-                      isOpen ? 'rotate-45' : ''
-                    }`}
+              return (
+                <div key={faq._id} className="py-6">
+                  <button
+                    onClick={() => setOpenIndex(isOpen ? null : index)}
+                    className="w-full flex justify-between text-left"
                   >
-                    +
-                  </span>
-                </button>
+                    <span className="font-medium">{faq.question}</span>
+                    <span
+                      className={`text-brand-primary transition ${
+                        isOpen ? 'rotate-45' : ''
+                      }`}
+                    >
+                      +
+                    </span>
+                  </button>
 
-                {isOpen && (
-                  <p className="mt-4 text-text-secondary/70">{faq.answer}</p>
-                )}
-              </div>
-            );
-          })}
+                  {isOpen && (
+                    <p className="mt-4 text-text-secondary/70">{faq.answer}</p>
+                  )}
+                </div>
+              );
+            })
+          )}
         </div>
       </Reveal>
     </section>
