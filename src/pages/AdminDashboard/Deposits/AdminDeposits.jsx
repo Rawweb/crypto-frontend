@@ -8,7 +8,7 @@ import ActionButtons from '@pages/AdminDashboard/Dashboard/components/ActionButt
 import ConfirmModal from '@components/ui/ConfirmModal';
 import { useLocation } from 'react-router-dom';
 import { useAdminNotifications } from '@context/AdminNotificationContext';
-import AdminTable from '../Dashboard/components/AdminTable';
+import AdminTable from '../Dashboard/components/AdminTable.jsx';
 
 const AdminDeposits = () => {
   const [deposits, setDeposits] = useState([]);
