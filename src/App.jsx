@@ -37,7 +37,7 @@ import Profile from '@pages/UserDashboard/Account/Profile';
 
 import Notification from '@pages/UserDashboard/Notifications/Notification';
 
-import AdminDashboard from '@pages/AdminDashboard/Dashboard/Pages/AdminDashboard';
+import AdminDashboard from '@pages/AdminDashboard/Dashboard/AdminDashboard';
 import AdminUsers from '@pages/AdminDashboard/Users/AdminUsers';
 import AdminTransactions from '@pages/AdminDashboard/Transactions/AdminTransactions';
 import AdminDeposits from '@pages/AdminDashboard/Deposits/AdminDeposits';

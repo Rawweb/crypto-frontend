@@ -1,9 +1,9 @@
 import { useEffect, useState } from 'react';
 import api from '@api/axios';
 
-import AdminTable from '@pages/AdminDashboard/Dashboard/components/AdminTable';
-import AdminSkeleton from '@pages/AdminDashboard/Dashboard/components/AdminSkeleton';
-import Pagination from '@pages/AdminDashboard/Dashboard/components/Pagination';
+import AdminTable from '@pages/AdminDashboard/Dashboard/AdminTable';
+import AdminSkeleton from '@pages/AdminDashboard/Dashboard/AdminSkeleton';
+import Pagination from '@pages/AdminDashboard/Dashboard/Pagination';
 import ConfirmModal from '@components/ui/ConfirmModal';
 
 const StatusBadge = ({ status }) => {

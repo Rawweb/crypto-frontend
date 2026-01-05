@@ -1,14 +1,13 @@
 import { useEffect, useState } from 'react';
 import api from '@api/axios';
 
-
-import AdminSkeleton from '@pages/AdminDashboard/Dashboard/components/AdminSkeleton';
-import StatusBadge from '@pages/AdminDashboard/Dashboard/components/StatusBadge';
-import ActionButtons from '@pages/AdminDashboard/Dashboard/components/ActionButtons';
+import AdminSkeleton from '@pages/AdminDashboard/Dashboard/AdminSkeleton.jsx';
+import StatusBadge from '@pages/AdminDashboard/Dashboard/StatusBadge.jsx';
+import ActionButtons from '@pages/AdminDashboard/Dashboard/ActionButtons.jsx';
 import ConfirmModal from '@components/ui/ConfirmModal';
 import { useLocation } from 'react-router-dom';
 import { useAdminNotifications } from '@context/AdminNotificationContext';
-import AdminTable from '../Dashboard/components/AdminTable.jsx';
+import AdminTable from '../Dashboard/AdminTable.jsx';
 
 const AdminDeposits = () => {
   const [deposits, setDeposits] = useState([]);

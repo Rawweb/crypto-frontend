@@ -1,6 +1,6 @@
 import { AdminNotificationProvider } from '@context/AdminNotificationContext';
-import AdminSidebar from '@pages/AdminDashboard/Dashboard/Layout/AdminSidebar';
-import AdminTopbar from '@pages/AdminDashboard/Dashboard/Layout/AdminTopbar';
+import AdminSidebar from '@pages/AdminDashboard/Dashboard/AdminSidebar';
+import AdminTopbar from '@pages/AdminDashboard/Dashboard/AdminTopbar';
 import { useState } from 'react';
 import { Outlet } from 'react-router-dom';
 

@@ -8,7 +8,7 @@ import {
   FiCheckCircle,
 } from 'react-icons/fi';
 import { FiTrash2 } from 'react-icons/fi';
-import AdminSkeleton from '@pages/AdminDashboard/Dashboard/components/AdminSkeleton';
+import AdminSkeleton from '@pages/AdminDashboard/Dashboard/AdminSkeleton';
 import { useAdminNotifications } from '@context/AdminNotificationContext';
 
 /* ---------------- helpers ---------------- */

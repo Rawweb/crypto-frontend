@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react';
 import api from '@api/axios';
 
-import AdminTable from '@pages/AdminDashboard/Dashboard/components/AdminTable';
-import AdminSkeleton from '@pages/AdminDashboard/Dashboard/components/AdminSkeleton';
+import AdminTable from '@pages/AdminDashboard/Dashboard/AdminTable';
+import AdminSkeleton from '@pages/AdminDashboard/Dashboard/AdminSkeleton';
 import ConfirmModal from '@components/ui/ConfirmModal';
 
 /* ==============================
