@@ -12,8 +12,8 @@ const Footer = () => {
       { label: 'Contact', path: '/contact' },
     ],
     legal: [
-      { label: 'Privacy Policy', path: '/privacy' },
-      { label: 'Terms of Service', path: '/terms' },
+      { label: 'Privacy Policy', path: '/pages/privacy-policy' },
+      { label: 'Terms of Service', path: '/pages/terms-of-service' },
     ],
   };
   return (

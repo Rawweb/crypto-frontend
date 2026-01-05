@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react';
 import api from '@api/axios';
 
-import AdminTable from '@pages/AdminDashboard/Dashboard/Components/AdminTable';
-import AdminSkeleton from '@pages/AdminDashboard/Dashboard/Components/AdminSkeleton';
+import AdminTable from '@pages/AdminDashboard/Dashboard/components/AdminTable';
+import AdminSkeleton from '@pages/AdminDashboard/Dashboard/components/AdminSkeleton';
 import ConfirmModal from '@components/ui/ConfirmModal';
 
 /* ==============================
@@ -46,8 +46,6 @@ const PlanModal = ({ open, onClose, onSave, initialData }) => {
       maxMultiplier: Number(form.maxMultiplier),
     });
   };
-
-
 
   return (
     <div className="fixed inset-0 z-50 flex">
@@ -155,7 +153,7 @@ const AdminInvestmentPlans = () => {
   const [editingPlan, setEditingPlan] = useState(null);
   const [confirmDelete, setConfirmDelete] = useState(null);
 
-    const PlanStatusBadge = ({ active }) => (
+  const PlanStatusBadge = ({ active }) => (
     <span
       className={`px-2 py-1 rounded text-xs font-medium ${
         active ? 'bg-green-500/10 text-green-500' : 'bg-red-500/10 text-red-500'

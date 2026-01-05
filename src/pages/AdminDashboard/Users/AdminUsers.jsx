@@ -2,12 +2,12 @@ import { useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import api from '@api/axios';
 
-import AdminTable from '@pages/AdminDashboard/Dashboard/Components/AdminTable';
-import AdminSkeleton from '@pages/AdminDashboard/Dashboard/Components/AdminSkeleton';
+import AdminTable from '@pages/AdminDashboard/Dashboard/components/AdminTable';
+import AdminSkeleton from '@pages/AdminDashboard/Dashboard/components/AdminSkeleton';
 import ConfirmModal from '@components/ui/ConfirmModal';
-import Pagination from '@pages/AdminDashboard/Dashboard/Components/Pagination';
-import BulkActionBar from '@pages/AdminDashboard/Dashboard/Components/BulkActionBar';
-import UserDrawer from '@pages/AdminDashboard/Dashboard/Components/UserDrawer';
+import Pagination from '@pages/AdminDashboard/Dashboard/components/Pagination';
+import BulkActionBar from '@pages/AdminDashboard/Dashboard/components/BulkActionBar';
+import UserDrawer from '@pages/AdminDashboard/Dashboard/components/UserDrawer';
 
 /* ---------------- status badge ---------------- */
 
@@ -137,9 +137,7 @@ const AdminUsers = () => {
         return;
       }
 
-      const res = await api.put(
-        `/admin/users/${selectedUser._id}/${endpoint}`
-      );
+      const res = await api.put(`/admin/users/${selectedUser._id}/${endpoint}`);
 
       setUsers(prev =>
         prev.map(u =>
@@ -213,11 +211,7 @@ const AdminUsers = () => {
         <button
           onClick={() => {
             setViewUser(u);
-            window.history.replaceState(
-              {},
-              '',
-              `/admin/users?open=${u._id}`
-            );
+            window.history.replaceState({}, '', `/admin/users?open=${u._id}`);
           }}
           className="text-left hover:underline"
         >

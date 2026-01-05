@@ -1,9 +1,9 @@
 import { useEffect, useState } from 'react';
 import api from '@api/axios';
 
-import AdminTable from '@pages/AdminDashboard/Dashboard/Components/AdminTable';
-import AdminSkeleton from '@pages/AdminDashboard/Dashboard/Components/AdminSkeleton';
-import Pagination from '@pages/AdminDashboard/Dashboard/Components/Pagination';
+import AdminTable from '@pages/AdminDashboard/Dashboard/components/AdminTable';
+import AdminSkeleton from '@pages/AdminDashboard/Dashboard/components/AdminSkeleton';
+import Pagination from '@pages/AdminDashboard/Dashboard/components/Pagination';
 import ConfirmModal from '@components/ui/ConfirmModal';
 
 const StatusBadge = ({ status }) => {
@@ -209,22 +209,19 @@ const AdminInvestments = () => {
   }
 
   if (!investments.length) {
-  return (
-    <div className="space-y-6">
-      <h1 className="text-lg font-semibold">Investments</h1>
+    return (
+      <div className="space-y-6">
+        <h1 className="text-lg font-semibold">Investments</h1>
 
-      <div className="rounded-xl border border-status-info/20 bg-status-info/10 p-6 text-center">
-        <p className="text-sm font-medium text-status-info">
-          No investments
-        </p>
-        <p className="text-xs text-text-muted mt-1">
-          New investments will appear here when users invest in a plan.
-        </p>
+        <div className="rounded-xl border border-status-info/20 bg-status-info/10 p-6 text-center">
+          <p className="text-sm font-medium text-status-info">No investments</p>
+          <p className="text-xs text-text-muted mt-1">
+            New investments will appear here when users invest in a plan.
+          </p>
+        </div>
       </div>
-    </div>
-  );
-}
-
+    );
+  }
 
   /* ---------------- table columns ---------------- */
 

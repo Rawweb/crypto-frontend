@@ -2,10 +2,10 @@ import { useEffect, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import api from '@api/axios';
 
-import AdminTable from '@pages/AdminDashboard/Dashboard/Components/AdminTable';
-import AdminSkeleton from '@pages/AdminDashboard/Dashboard/Components/AdminSkeleton';
-import StatusBadge from '@pages/AdminDashboard/Dashboard/Components/StatusBadge';
-import Pagination from '@pages/AdminDashboard/Dashboard/Components/Pagination';
+import AdminTable from '@pages/AdminDashboard/Dashboard/components/AdminTable';
+import AdminSkeleton from '@pages/AdminDashboard/Dashboard/components/AdminSkeleton';
+import StatusBadge from '@pages/AdminDashboard/Dashboard/components/StatusBadge';
+import Pagination from '@pages/AdminDashboard/Dashboard/components/Pagination';
 
 /* ---------------- component ---------------- */
 

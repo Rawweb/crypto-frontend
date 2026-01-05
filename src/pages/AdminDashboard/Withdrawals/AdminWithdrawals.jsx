@@ -1,11 +1,11 @@
 import { useEffect, useState } from 'react';
 import api from '@api/axios';
-import AdminSkeleton from '@pages/AdminDashboard/Dashboard/Components/AdminSkeleton';
+import AdminSkeleton from '@pages/AdminDashboard/Dashboard/components/AdminSkeleton';
 import { FiCopy, FiCheck } from 'react-icons/fi';
-import ActionButtons from '@pages/AdminDashboard/Dashboard/Components/ActionButtons';
-import AdminTable from '@pages/AdminDashboard/Dashboard/Components/AdminTable';
+import ActionButtons from '@pages/AdminDashboard/Dashboard/components/ActionButtons';
+import AdminTable from '@pages/AdminDashboard/Dashboard/components/AdminTable';
 import ConfirmModal from '@components/ui/ConfirmModal';
-import NetworkBadge from '@pages/AdminDashboard/Dashboard/Components/NetworkBadge';
+import NetworkBadge from '@pages/AdminDashboard/Dashboard/components/NetworkBadge';
 import { normalizeNetworkName } from '@components/utils/normalizeNetworkName';
 import { useLocation } from 'react-router-dom';
 import { useAdminNotifications } from '@context/AdminNotificationContext';

@@ -17,8 +17,6 @@ import BuySellPage from '@pages/Publics/Buy-sell/BuySellPage';
 import ContactPage from '@pages/Publics/Contact/ContactPage';
 import HomePage from '@pages/Publics/Home/HomePage';
 
-import PrivacyPolicy from '@pages/Publics/Legal/PrivacyPolicy';
-import TermsOfService from '@pages/Publics/Legal/TermsOfService';
 
 import Dashboard from '@pages/UserDashboard/Dashboard/Dashboard';
 
@@ -44,11 +42,15 @@ import AdminUsers from '@pages/AdminDashboard/Users/AdminUsers';
 import AdminTransactions from '@pages/AdminDashboard/Transactions/AdminTransactions';
 import AdminDeposits from '@pages/AdminDashboard/Deposits/AdminDeposits';
 import AdminWithdrawals from '@pages/AdminDashboard/Withdrawals/AdminWithdrawals';
-import AdminPages from '@pages/AdminDashboard/CMS - pages/AdminPages';
 import AdminNotifications from '@pages/AdminDashboard/Notifications/AdminNotifications';
 import AdminInvestments from '@pages/AdminDashboard/Investments/AdminInvestments';
 import AdminInvestmentPlans from '@pages/AdminDashboard/Investments/AdminInvestmentPlans';
-
+import PageRenderer from '@pages/Publics/Legal/PageRenderer';
+import AdminFaqs from '@pages/AdminDashboard/CMS - pages/AdminFaqs';
+import AdminPages from '@pages/AdminDashboard/CMS - pages/AdminPages';
+import AdminPageEditor from '@pages/AdminDashboard/CMS - pages/AdminPageEditor';
+import AdminPagesHome from '@pages/AdminDashboard/CMS - pages/AdminPagesHome';
+import AdminFaqEditor from '@pages/AdminDashboard/CMS - pages/AdminFaqEditor';
 
 const App = () => {
   return (
@@ -62,8 +64,7 @@ const App = () => {
           <Route path="about" element={<AboutPage />} />
           <Route path="contact" element={<ContactPage />} />
           <Route path="sell" element={<BuySellPage />} />
-          <Route path="privacy" element={<PrivacyPolicy />} />
-          <Route path="terms" element={<TermsOfService />} />
+          <Route path="pages/:slug" element={<PageRenderer />} />
         </Route>
 
         {/* AUTH */}
@@ -121,10 +122,25 @@ const App = () => {
           <Route path="admin/transactions" element={<AdminTransactions />} />
           <Route path="admin/deposits" element={<AdminDeposits />} />
           <Route path="admin/withdrawals" element={<AdminWithdrawals />} />
-          <Route path="admin/pages" element={<AdminPages />} />
-          <Route path="admin/notifications" element={<AdminNotifications/>} />
-          <Route path="admin/investments" element={<AdminInvestments/>} />
-          <Route path="admin/investment-plans" element={<AdminInvestmentPlans/>} />
+          <Route path="admin/notifications" element={<AdminNotifications />} />
+          <Route path="admin/investments" element={<AdminInvestments />} />
+          <Route
+            path="admin/investment-plans"
+            element={<AdminInvestmentPlans />}
+          />
+
+          <Route path="admin/pages" element={<AdminPagesHome />} />
+
+          <Route path="admin/cms/faqs" element={<AdminFaqs />} />
+          <Route path="admin/cms/faqs/new" element={<AdminFaqEditor />} />
+          <Route path="admin/cms/faqs/:id/edit" element={<AdminFaqEditor />} />
+
+          <Route path="admin/cms/pages" element={<AdminPages />} />
+          <Route path="admin/cms/pages/new" element={<AdminPageEditor />} />
+          <Route
+            path="admin/cms/pages/:id/edit"
+            element={<AdminPageEditor />}
+          />
         </Route>
       </Routes>
     </Router>

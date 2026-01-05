@@ -8,7 +8,7 @@ import {
   FiCheckCircle,
 } from 'react-icons/fi';
 import { FiTrash2 } from 'react-icons/fi';
-import AdminSkeleton from '@pages/AdminDashboard/Dashboard/Components/AdminSkeleton';
+import AdminSkeleton from '@pages/AdminDashboard/Dashboard/components/AdminSkeleton';
 import { useAdminNotifications } from '@context/AdminNotificationContext';
 
 /* ---------------- helpers ---------------- */
@@ -45,7 +45,6 @@ const AdminNotifications = () => {
   const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
   const { refreshUnread } = useAdminNotifications();
-
 
   useEffect(() => {
     api.get('/admin/notifications').then(res => {
